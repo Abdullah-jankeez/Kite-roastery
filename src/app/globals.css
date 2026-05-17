@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand book — Primary */
+  --kite-charcoal: #383836;        /* Pantone 447 — primary */
+  --kite-grey:     #dcdddd;        /* light grayish cyan — secondary */
+
+  /* Brand book — Colour palette (p.11) */
+  --kite-teal:     #91d3c7;        /* Green Wave  */
+  --kite-pink:     #f179af;        /* Soft Pink   */
+  --kite-lime:     #96d2b2;        /* Lime Green  */
+  --kite-rose:     #d3b3ba;        /* Grayish Red */
+  --kite-orange:   #e79a3d;        /* Bright Orange */
+  --kite-mustard:  #fdd451;        /* Mustard     */
+  --kite-blue:     #303895;        /* Dark Powder Blue */
+
+  --kite-white:    #fafafa;
+}
+
+@theme inline {
+  --color-charcoal:  var(--kite-charcoal);
+  --color-kite-grey: var(--kite-grey);
+  --color-teal:      var(--kite-teal);
+  --color-pink:      var(--kite-pink);
+  --color-lime:      var(--kite-lime);
+  --color-rose:      var(--kite-rose);
+  --color-orange:    var(--kite-orange);
+  --color-mustard:   var(--kite-mustard);
+  --color-kite-blue: var(--kite-blue);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color: var(--kite-charcoal);
+  background: var(--kite-white);
+  scroll-behavior: smooth;
+}
+
+html[lang="ar"] {
+  direction: rtl;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--kite-white);
+}
+
+a, button {
+  transition: all 0.2s ease;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--kite-grey); }
+::-webkit-scrollbar-thumb { background: var(--kite-charcoal); border-radius: 3px; }
+
+/* ── ANIMATED BACKGROUNDS ─────────────────────────────────────────── */
+
+/* Subtle moving conic gradient — drop on a section for a "living" backdrop */
+@keyframes kite-shift {
+  0%   { background-position:   0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position:   0% 50%; }
+}
+.bg-living {
+  background-size: 200% 200%;
+  animation: kite-shift 18s ease-in-out infinite;
+}
+
+/* Soft repeating grain so flat backgrounds feel tactile */
+.bg-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* Floating "coffee steam" wisp animation */
+@keyframes kite-steam {
+  0%   { transform: translateY(0)    scale(1)   rotate(0);   opacity: 0;   }
+  20%  {                                                     opacity: .55; }
+  100% { transform: translateY(-80px) scale(1.6) rotate(8deg); opacity: 0; }
+}
+.steam {
+  animation: kite-steam 4s ease-in-out infinite;
+}
+
+/* Reveal underline that grows from the start side on hover (RTL aware) */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  bottom: -2px;
+  height: 2px;
+  width: 0;
+  background: currentColor;
+  transition: width .35s cubic-bezier(.25,.1,.25,1);
+}
+.link-underline:hover::after { width: 100%; }
+
+/* Pulse-glow ring (used by WhatsApp button) */
+@keyframes kite-ping-soft {
+  0%   { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.55); }
+  70%  { box-shadow: 0 0 0 22px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+.ping-soft { animation: kite-ping-soft 2.4s ease-out infinite; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .bg-living, .steam, .ping-soft { animation: none !important; }
+  *, *::before, *::after { transition-duration: .01ms !important; }
+}

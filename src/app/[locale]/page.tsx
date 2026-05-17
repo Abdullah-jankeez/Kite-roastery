@@ -1,0 +1,377 @@
+"use client";
+import { useTranslations, useLocale } from "next-intl";
+import Link from "next/link";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { getFeaturedProducts } from "@/lib/products";
+import ProductCard from "@/components/ProductCard";
+import FadeIn from "@/components/FadeIn";
+import FloatingBeans from "@/components/FloatingBeans";
+import MagneticButton from "@/components/MagneticButton";
+import Marquee from "@/components/Marquee";
+import TiltCard from "@/components/TiltCard";
+
+export default function HomePage() {
+  const t = useTranslations("home");
+  const hero = useTranslations("hero");
+  const nav = useTranslations("nav");
+  const locale = useLocale();
+  const featured = getFeaturedProducts();
+
+  const pillars = [
+    { key: "consistency",  icon: "⚖️", color: "#91d3c7" }, // green wave
+    { key: "innovation",   icon: "💡", color: "#fdd451" }, // mustard
+    { key: "transparency", icon: "🔍", color: "#f179af" }, // soft pink
+    { key: "partnership",  icon: "🤝", color: "#96d2b2" }, // lime green
+  ] as const;
+
+  // Mouse parallax for hero orbs
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 60, damping: 18, mass: 1 });
+  const sy = useSpring(my, { stiffness: 60, damping: 18, mass: 1 });
+  const orbAx = useTransform(sx, [-0.5, 0.5], [-60, 60]);
+  const orbAy = useTransform(sy, [-0.5, 0.5], [-40, 40]);
+  const orbBx = useTransform(sx, [-0.5, 0.5], [40, -40]);
+  const orbBy = useTransform(sy, [-0.5, 0.5], [30, -30]);
+  const orbCx = useTransform(sx, [-0.5, 0.5], [-25, 25]);
+  const orbCy = useTransform(sy, [-0.5, 0.5], [25, -25]);
+
+  function trackMouse(e: React.MouseEvent<HTMLElement>) {
+    const r = e.currentTarget.getBoundingClientRect();
+    mx.set((e.clientX - r.left) / r.width - 0.5);
+    my.set((e.clientY - r.top) / r.height - 0.5);
+  }
+
+  return (
+    <div>
+      {/* ── HERO ─────────────────────────────────────────────────────── */}
+      <section
+        onMouseMove={trackMouse}
+        className="relative flex items-center justify-center min-h-[92vh] overflow-hidden bg-grain"
+        style={{
+          background:
+            "radial-gradient(ellipse at 30% 20%, #4a4a48 0%, #383836 55%, #2b2b2a 100%)",
+        }}
+      >
+        {/* Mouse-parallax gradient orbs */}
+        <motion.div
+          className="absolute w-[620px] h-[620px] rounded-full opacity-25 blur-3xl"
+          style={{
+            background: "#91d3c7",
+            top: "10%",
+            left: "-10%",
+            x: orbAx,
+            y: orbAy,
+          }}
+          animate={{ scale: [1, 1.08, 1] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute w-[520px] h-[520px] rounded-full opacity-20 blur-3xl"
+          style={{
+            background: "#f179af",
+            bottom: "5%",
+            right: "-10%",
+            x: orbBx,
+            y: orbBy,
+          }}
+          animate={{ scale: [1, 1.1, 1] }}
+          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute w-[420px] h-[420px] rounded-full opacity-15 blur-3xl"
+          style={{
+            background: "#fdd451",
+            top: "50%",
+            left: "40%",
+            x: orbCx,
+            y: orbCy,
+          }}
+          animate={{ scale: [1, 1.12, 1] }}
+          transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        {/* Floating coffee beans */}
+        <FloatingBeans count={18} color="rgba(253, 212, 81, 0.16)" />
+
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+          {/* KITE wordmark — letter-by-letter reveal with hover lift */}
+          <div className="text-[clamp(5rem,18vw,14rem)] font-black tracking-tight leading-none mb-4 select-none text-white flex justify-center">
+            {"KITE".split("").map((ch, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: 80, rotate: -8 }}
+                animate={{ opacity: 1, y: 0, rotate: 0 }}
+                transition={{
+                  duration: 0.7,
+                  delay: i * 0.08,
+                  ease: [0.25, 0.1, 0.25, 1],
+                }}
+                whileHover={{ y: -10, color: "#91d3c7" }}
+                className="inline-block cursor-default"
+              >
+                {ch}
+              </motion.span>
+            ))}
+          </div>
+
+          {/* Coloured accent bar */}
+          <motion.div
+            className="flex justify-center gap-1 mb-6"
+            initial={{ opacity: 0, scaleX: 0 }}
+            animate={{ opacity: 1, scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            {["#91d3c7", "#f179af", "#96d2b2", "#e79a3d", "#fdd451", "#303895"].map((c, i) => (
+              <motion.span
+                key={c}
+                className="h-1.5 w-8 rounded-full"
+                style={{ backgroundColor: c }}
+                animate={{ scaleY: [1, 1.8, 1] }}
+                transition={{
+                  duration: 1.4,
+                  delay: i * 0.15,
+                  repeat: Infinity,
+                  repeatDelay: 2,
+                  ease: "easeInOut",
+                }}
+              />
+            ))}
+          </motion.div>
+
+          <motion.p
+            className="text-white text-lg md:text-2xl font-light mb-2 tracking-wide"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.6 }}
+          >
+            {hero("tagline")}
+          </motion.p>
+
+          <motion.p
+            className="text-2xl md:text-3xl font-semibold mb-10"
+            style={{ color: "#91d3c7" }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.8 }}
+          >
+            {hero("slogan")}
+          </motion.p>
+
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 1 }}
+          >
+            <MagneticButton>
+              <Link
+                href={`/${locale}/shop`}
+                className="inline-block px-8 py-4 text-sm font-bold rounded-full uppercase tracking-widest shadow-lg transition-shadow hover:shadow-xl"
+                style={{ backgroundColor: "#91d3c7", color: "#383836" }}
+              >
+                {hero("shopNow")}
+              </Link>
+            </MagneticButton>
+            <MagneticButton>
+              <Link
+                href={`/${locale}/about`}
+                className="inline-block px-8 py-4 text-sm font-bold rounded-full border-2 text-white uppercase tracking-widest backdrop-blur-sm hover:bg-white/10 transition-colors"
+                style={{ borderColor: "rgba(255,255,255,0.4)" }}
+              >
+                {hero("learnMore")}
+              </Link>
+            </MagneticButton>
+          </motion.div>
+        </div>
+
+        {/* Scroll hint */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 text-xs tracking-widest flex flex-col items-center gap-2"
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <span>SCROLL</span>
+          <span className="text-lg">↓</span>
+        </motion.div>
+      </section>
+
+      {/* ── BRAND MARQUEE ────────────────────────────────────────────── */}
+      <section
+        className="py-5 border-y"
+        style={{ backgroundColor: "#fdd451", borderColor: "#383836" }}
+      >
+        <Marquee duration={28}>
+          {Array.from({ length: 6 }).map((_, i) => (
+            <span
+              key={i}
+              className="flex items-center gap-12 text-2xl md:text-3xl font-black tracking-tight"
+              style={{ color: "#383836" }}
+            >
+              <span>{hero("slogan")}</span>
+              <span style={{ color: "#f179af" }}>✦</span>
+              <span>BAGHDAD · IRAQ</span>
+              <span style={{ color: "#303895" }}>✦</span>
+              <span>SPECIALTY ROASTED</span>
+              <span style={{ color: "#91d3c7" }}>✦</span>
+            </span>
+          ))}
+        </Marquee>
+      </section>
+
+      {/* ── FEATURED COFFEES ─────────────────────────────────────────── */}
+      <section className="relative py-20 px-4 bg-white overflow-hidden">
+        {/* Decorative SVG dots */}
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-[0.06] pointer-events-none"
+          style={{
+            backgroundImage:
+              "radial-gradient(#383836 1px, transparent 1px)",
+            backgroundSize: "26px 26px",
+          }}
+        />
+        <div className="relative max-w-7xl mx-auto">
+          <FadeIn className="text-center mb-14">
+            <h2
+              className="text-3xl md:text-4xl font-black tracking-tight mb-3"
+              style={{ color: "#383836" }}
+            >
+              {t("featuredTitle")}
+            </h2>
+            <p className="text-gray-500 max-w-xl mx-auto">{t("featuredSubtitle")}</p>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featured.map((p, i) => (
+              <FadeIn key={p.id} delay={i * 0.12} direction="up">
+                <TiltCard maxTilt={6}>
+                  <ProductCard product={p} />
+                </TiltCard>
+              </FadeIn>
+            ))}
+          </div>
+
+          <FadeIn className="text-center mt-12">
+            <MagneticButton>
+              <Link
+                href={`/${locale}/shop`}
+                className="inline-block px-8 py-3 text-sm font-bold rounded-full uppercase tracking-widest shadow-md hover:shadow-xl transition-shadow"
+                style={{ backgroundColor: "#383836", color: "#fdd451" }}
+              >
+                {nav("shop")} →
+              </Link>
+            </MagneticButton>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ── SUBSCRIPTION CTA — animated powder-blue background ───────── */}
+      <section
+        className="relative py-20 px-4 overflow-hidden bg-grain bg-living"
+        style={{
+          background:
+            "linear-gradient(135deg, #303895 0%, #4148b8 50%, #303895 100%)",
+        }}
+      >
+        <FloatingBeans count={10} color="rgba(253, 212, 81, 0.12)" />
+        <FadeIn className="relative max-w-4xl mx-auto text-center">
+          <motion.div
+            className="text-5xl mb-6 inline-block"
+            animate={{ rotate: [0, -10, 10, -6, 6, 0] }}
+            transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
+          >
+            📦
+          </motion.div>
+          <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-4 text-white">
+            {t("subscribeTitle")}
+          </h2>
+          <p className="text-white/80 mb-8 max-w-xl mx-auto">{t("subscribeSubtitle")}</p>
+          <MagneticButton>
+            <Link
+              href={`/${locale}/subscriptions`}
+              className="inline-block px-8 py-4 text-sm font-bold rounded-full uppercase tracking-widest shadow-lg hover:shadow-2xl transition-shadow"
+              style={{ backgroundColor: "#fdd451", color: "#383836" }}
+            >
+              {t("subscribeBtn")}
+            </Link>
+          </MagneticButton>
+        </FadeIn>
+      </section>
+
+      {/* ── WHY KITE — pillars with 3D tilt + glow ───────────────────── */}
+      <section className="relative py-20 px-4 bg-white overflow-hidden">
+        <div className="max-w-6xl mx-auto">
+          <FadeIn className="text-center mb-14">
+            <h2
+              className="text-3xl md:text-4xl font-black tracking-tight"
+              style={{ color: "#383836" }}
+            >
+              {t("whyTitle")}
+            </h2>
+          </FadeIn>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {pillars.map(({ key, icon, color }, i) => (
+              <FadeIn key={key} delay={i * 0.1} direction="up">
+                <TiltCard glowColor={`${color}55`} maxTilt={10}>
+                  <div
+                    className="group text-center p-8 rounded-2xl border-2 transition-colors h-full bg-white hover:shadow-2xl"
+                    style={{ borderColor: "#dcdddd" }}
+                  >
+                    <motion.div
+                      className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-2xl shadow-md"
+                      style={{ backgroundColor: color }}
+                      whileHover={{ rotate: [0, -15, 15, 0], scale: 1.15 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      {icon}
+                    </motion.div>
+                    <h3 className="text-lg font-bold mb-2" style={{ color: "#383836" }}>
+                      {t(key)}
+                    </h3>
+                    <p className="text-sm text-gray-500 leading-relaxed">{t(`${key}Desc`)}</p>
+                  </div>
+                </TiltCard>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── TOOLS CTA — living pink gradient ─────────────────────────── */}
+      <section
+        className="relative py-20 px-4 overflow-hidden bg-living bg-grain"
+        style={{
+          background:
+            "linear-gradient(120deg, #f179af 0%, #f48fb9 50%, #f179af 100%)",
+        }}
+      >
+        <FloatingBeans count={8} color="rgba(255,255,255,0.18)" />
+        <FadeIn className="relative max-w-4xl mx-auto text-center">
+          <motion.div
+            className="text-5xl mb-6 inline-block"
+            animate={{ y: [0, -6, 0] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            ⚗️
+          </motion.div>
+          <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-4 text-white">
+            {t("toolsTitle")}
+          </h2>
+          <p className="mb-8 max-w-xl mx-auto text-white/90">
+            {t("toolsSubtitle")}
+          </p>
+          <MagneticButton>
+            <Link
+              href={`/${locale}/shop?cat=tools`}
+              className="inline-block px-8 py-4 text-sm font-bold rounded-full uppercase tracking-widest shadow-lg hover:shadow-2xl transition-shadow"
+              style={{ backgroundColor: "#383836", color: "#ffffff" }}
+            >
+              {t("shopTools")}
+            </Link>
+          </MagneticButton>
+        </FadeIn>
+      </section>
+    </div>
+  );
+}

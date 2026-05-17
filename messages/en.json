@@ -1,0 +1,172 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "coffee": "Our Coffee",
+    "shop": "Shop",
+    "brewing": "Brewing Guides",
+    "wholesale": "Wholesale",
+    "contact": "Contact",
+    "cart": "Cart",
+    "subscriptions": "Subscriptions"
+  },
+  "hero": {
+    "slogan": "A sip lifts you up!",
+    "tagline": "Specialty coffee roasted with passion in Baghdad.",
+    "shopNow": "Shop Now",
+    "learnMore": "Our Story"
+  },
+  "home": {
+    "featuredTitle": "Featured Coffees",
+    "featuredSubtitle": "Sourced from the world's finest farms, roasted to perfection.",
+    "subscribeTitle": "Never Run Out",
+    "subscribeSubtitle": "Get freshly roasted coffee delivered to your door on your schedule.",
+    "subscribeBtn": "Start Your Subscription",
+    "toolsTitle": "Brew Like a Pro",
+    "toolsSubtitle": "Premium brewing tools for the perfect cup.",
+    "shopTools": "Shop Tools",
+    "whyTitle": "Why Kite?",
+    "consistency": "Consistency",
+    "consistencyDesc": "Every batch roasted to the same exacting standard.",
+    "innovation": "Innovation",
+    "innovationDesc": "Always exploring new origins and processing methods.",
+    "transparency": "Transparency",
+    "transparencyDesc": "We tell you exactly where your coffee comes from.",
+    "partnership": "Partnership",
+    "partnershipDesc": "We grow with our B2B and B2C customers together."
+  },
+  "about": {
+    "title": "Our Story",
+    "subtitle": "Born in Baghdad, raised on great coffee.",
+    "body1": "Kite Coffee Roastery is a specialty roastery based in Baghdad, Iraq. Founded in 2025, we set out with a simple belief: great coffee changes the day.",
+    "body2": "We work directly with farmers and importers to source exceptional green beans, then roast them in small batches to bring out the best in every cup — whether you're a home enthusiast or a café owner looking for a reliable roasting partner.",
+    "body3": "Our four pillars — Consistency, Innovation, Transparency, and Partnership — guide everything we do."
+  },
+  "coffeePage": {
+    "title": "Our Coffee",
+    "subtitle": "Single-origin specialty beans, sourced directly and roasted in small batches.",
+    "process": {
+      "sourced": {
+        "title": "Sourced",
+        "desc": "Green beans from trusted farms across the world's finest coffee regions."
+      },
+      "roasted": {
+        "title": "Roasted",
+        "desc": "Small-batch roasted in Baghdad to bring out each origin's character."
+      },
+      "packed": {
+        "title": "Packed",
+        "desc": "Sealed in resealable bags with a one-way valve to lock in freshness."
+      },
+      "delivered": {
+        "title": "Delivered",
+        "desc": "Cash on delivery anywhere in Iraq, usually within 1–2 days."
+      }
+    },
+    "ctaTitle": "Find your next favorite cup",
+    "ctaSubtitle": "Explore our full lineup of beans, brewing tools, and subscriptions.",
+    "ctaButton": "Visit the Shop"
+  },
+  "shop": {
+    "title": "Shop",
+    "subtitle": "Single-origin beans and premium tools.",
+    "filterAll": "All",
+    "filterBeans": "Coffee Beans",
+    "filterTools": "Tools",
+    "filterSubs": "Subscriptions",
+    "addToCart": "Add to Cart",
+    "soldOut": "Sold Out",
+    "origin": "Origin",
+    "roast": "Roast",
+    "tastingNotes": "Tasting Notes",
+    "weight": "Weight",
+    "price": "Price"
+  },
+  "cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty.",
+    "continueShopping": "Continue Shopping",
+    "subtotal": "Subtotal",
+    "checkout": "Place Order (Cash on Delivery)",
+    "remove": "Remove",
+    "qty": "Qty"
+  },
+  "checkout": {
+    "title": "Place Your Order",
+    "name": "Full Name",
+    "phone": "Phone Number",
+    "address": "Delivery Address",
+    "notes": "Order Notes (optional)",
+    "submit": "Confirm Order",
+    "success": "Order placed! We'll call you to confirm.",
+    "cod": "Cash on Delivery — pay when your order arrives."
+  },
+  "brewing": {
+    "title": "Brewing Guides",
+    "subtitle": "Get the most from your Kite coffee.",
+    "pourOver": "Pour Over",
+    "frenchPress": "French Press",
+    "espresso": "Espresso",
+    "coldBrew": "Cold Brew",
+    "aeropress": "AeroPress"
+  },
+  "wholesale": {
+    "title": "Wholesale",
+    "subtitle": "Partnering with cafés, restaurants, and offices across Iraq.",
+    "body": "We supply freshly roasted specialty coffee to businesses who care about quality. Whether you need 1 kg or 100 kg per week, we'll build a roasting program tailored to your needs.",
+    "benefits": "Why Partner with Kite?",
+    "b1": "Consistent quality with every batch",
+    "b2": "Flexible quantities — no minimum order",
+    "b3": "Custom roast profiles available",
+    "b4": "Direct support from our team",
+    "contactUs": "Get in Touch",
+    "form": {
+      "business": "Business Name",
+      "name": "Your Name",
+      "email": "Email",
+      "phone": "Phone",
+      "volume": "Estimated Weekly Volume (kg)",
+      "message": "Tell us about your needs",
+      "submit": "Send Inquiry"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We'd love to hear from you.",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "addressVal": "Iraq / Baghdad / Karada / Al-Senaha St. / next to Al-Khasaki Sweets",
+    "form": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "message": "Message",
+      "submit": "Send Message",
+      "success": "Message sent! We'll get back to you soon."
+    },
+    "followUs": "Follow Us"
+  },
+  "subscriptions": {
+    "title": "Subscriptions",
+    "subtitle": "Fresh roasted coffee, delivered on your schedule.",
+    "monthly": "Monthly",
+    "biweekly": "Bi-Weekly",
+    "weekly": "Weekly",
+    "250g": "250g",
+    "500g": "500g",
+    "1kg": "1kg",
+    "subscribe": "Subscribe",
+    "customize": "Choose your beans, grind, and frequency.",
+    "cancel": "Cancel anytime. No commitment."
+  },
+  "footer": {
+    "tagline": "Specialty coffee roasted in Baghdad.",
+    "links": "Quick Links",
+    "social": "Follow Us",
+    "rights": "© 2025 Kite Coffee Roastery. All rights reserved.",
+    "newsletter": "Stay in the loop",
+    "newsletterPlaceholder": "Your email address",
+    "newsletterBtn": "Subscribe",
+    "newsletterSuccess": "You're subscribed!"
+  }
+}
