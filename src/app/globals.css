@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Class-based dark mode — Tailwind v4 equivalent of v3 `darkMode: "class"`.
+   `dark:` utilities activate only when a `.dark` ancestor is present. */
+@custom-variant dark (&:is(.dark *));
+
 :root {
   /* Brand book — Primary */
   --kite-charcoal: #383836;        /* Pantone 447 — primary */
@@ -15,6 +19,30 @@
   --kite-blue:     #303895;        /* Dark Powder Blue */
 
   --kite-white:    #fafafa;
+
+  /* ── Aurora Background colour variables ──────────────────────────
+     v4 replacement for the v3 `addVariablesForColors` plugin. The
+     aurora-background component reads these via var(--name). We expose
+     only the subset it uses instead of dumping the entire palette. */
+  --white:       #ffffff;
+  --black:       #000000;
+  --transparent: transparent;
+  --blue-300:    #93c5fd;
+  --blue-400:    #60a5fa;
+  --blue-500:    #3b82f6;
+  --indigo-300:  #a5b4fc;
+  --violet-200:  #ddd6fe;
+}
+
+/* Aurora keyframes + animation token.
+   v4 generates the `animate-aurora` utility from the `--animate-*` theme var. */
+@theme {
+  --animate-aurora: aurora 60s linear infinite;
+}
+
+@keyframes aurora {
+  from { background-position: 50% 50%, 50% 50%; }
+  to   { background-position: 350% 50%, 350% 50%; }
 }
 
 @theme inline {
