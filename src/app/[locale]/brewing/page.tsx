@@ -3,11 +3,21 @@ import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import PageHeader from "@/components/PageHeader";
 import FadeIn from "@/components/FadeIn";
+import Icon, { IconName } from "@/components/Icon";
 
-const guides = [
+const guides: {
+  key: "pourOver" | "frenchPress" | "espresso" | "coldBrew" | "aeropress";
+  icon: IconName;
+  color: string;
+  ratio: string;
+  temp: string;
+  time: string;
+  grind: string;
+  steps: string[];
+}[] = [
   {
-    key: "pourOver" as const,
-    icon: "🫗",
+    key: "pourOver",
+    icon: "droplet",
     color: "#91d3c7",
     ratio: "1:15",
     temp: "92–96°C",
@@ -22,8 +32,8 @@ const guides = [
     ],
   },
   {
-    key: "frenchPress" as const,
-    icon: "🧉",
+    key: "frenchPress",
+    icon: "beaker",
     color: "#fdd451",
     ratio: "1:12",
     temp: "93–95°C",
@@ -38,8 +48,8 @@ const guides = [
     ],
   },
   {
-    key: "espresso" as const,
-    icon: "☕",
+    key: "espresso",
+    icon: "zap",
     color: "#e79a3d",
     ratio: "1:2",
     temp: "90–93°C",
@@ -54,8 +64,8 @@ const guides = [
     ],
   },
   {
-    key: "coldBrew" as const,
-    icon: "🧊",
+    key: "coldBrew",
+    icon: "thermometer",
     color: "#303895",
     ratio: "1:8",
     temp: "Cold water",
@@ -70,8 +80,8 @@ const guides = [
     ],
   },
   {
-    key: "aeropress" as const,
-    icon: "🔧",
+    key: "aeropress",
+    icon: "settings",
     color: "#f179af",
     ratio: "1:10",
     temp: "80–85°C",
@@ -130,20 +140,28 @@ export default function BrewingPage() {
                 />
 
                 <motion.span
-                  className="relative text-4xl w-16 h-16 flex items-center justify-center rounded-2xl shadow-lg"
+                  className="relative w-16 h-16 flex items-center justify-center rounded-2xl shadow-lg"
                   style={{ backgroundColor: g.color }}
                   whileHover={{ rotate: [0, -12, 12, 0], scale: 1.1 }}
                   transition={{ duration: 0.6 }}
                 >
-                  {g.icon}
+                  <Icon name={g.icon} className="w-8 h-8 text-[#383836]" strokeWidth={1.8} />
                 </motion.span>
                 <div className="relative">
-                  <h2 className="text-xl font-black text-white">{t(g.key)}</h2>
+                  <h2 className="font-display text-2xl md:text-3xl font-semibold text-white">{t(g.key)}</h2>
                   <div className="flex flex-wrap gap-4 mt-1 text-xs text-gray-300">
-                    <span>⚖️ {g.ratio} ratio</span>
-                    <span>🌡️ {g.temp}</span>
-                    <span>⏱️ {g.time}</span>
-                    <span>⚙️ Grind: {g.grind}</span>
+                    <span className="inline-flex items-center gap-1.5">
+                      <Icon name="scaleRatio" className="w-3.5 h-3.5" /> {g.ratio} ratio
+                    </span>
+                    <span className="inline-flex items-center gap-1.5">
+                      <Icon name="thermometer" className="w-3.5 h-3.5" /> {g.temp}
+                    </span>
+                    <span className="inline-flex items-center gap-1.5">
+                      <Icon name="timer" className="w-3.5 h-3.5" /> {g.time}
+                    </span>
+                    <span className="inline-flex items-center gap-1.5">
+                      <Icon name="settings" className="w-3.5 h-3.5" /> {g.grind}
+                    </span>
                   </div>
                 </div>
               </div>

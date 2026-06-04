@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import PageHeader from "@/components/PageHeader";
 import FadeIn from "@/components/FadeIn";
 import MagneticButton from "@/components/MagneticButton";
+import Icon from "@/components/Icon";
 
 export default function WholesalePage() {
   const t = useTranslations("wholesale");
@@ -44,12 +45,12 @@ export default function WholesalePage() {
               <FadeIn key={b} delay={0.15 + i * 0.08} direction="left">
                 <li className="flex items-start gap-3 group">
                   <motion.span
-                    whileHover={{ scale: 1.25, rotate: 360 }}
+                    whileHover={{ scale: 1.2 }}
                     transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                    className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shadow-sm"
-                    style={{ backgroundColor: benefitColors[i], color: "#383836" }}
+                    className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center shadow-sm"
+                    style={{ backgroundColor: benefitColors[i] }}
                   >
-                    ✓
+                    <Icon name="check" className="w-4 h-4 text-[#383836]" strokeWidth={2.5} />
                   </motion.span>
                   <span className="text-gray-600 group-hover:text-[#383836] transition-colors pt-0.5">
                     {t(b)}
@@ -80,15 +81,15 @@ export default function WholesalePage() {
                 </p>
                 <a
                   href="tel:07846221065"
-                  className="block link-underline text-gray-300 hover:text-[#fdd451] transition-colors text-sm w-fit"
+                  className="flex items-center gap-2 text-gray-300 hover:text-[#fdd451] transition-colors text-sm w-fit"
                 >
-                  📞 07846221065
+                  <Icon name="phone" className="w-4 h-4" /> 07846221065
                 </a>
                 <a
                   href="mailto:Kiteroastery@gmail.com"
-                  className="block link-underline text-gray-300 hover:text-[#fdd451] transition-colors text-sm mt-2 w-fit"
+                  className="flex items-center gap-2 text-gray-300 hover:text-[#fdd451] transition-colors text-sm mt-2 w-fit"
                 >
-                  ✉️ Kiteroastery@gmail.com
+                  <Icon name="mail" className="w-4 h-4" /> Kiteroastery@gmail.com
                 </a>
               </div>
             </div>
@@ -111,11 +112,12 @@ export default function WholesalePage() {
               className="text-center py-12"
             >
               <motion.div
-                className="text-5xl mb-4 inline-block"
+                className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center"
+                style={{ backgroundColor: "#96d2b2" }}
                 animate={{ rotate: [0, -10, 10, 0] }}
                 transition={{ duration: 0.6 }}
               >
-                ✅
+                <Icon name="check" className="w-8 h-8 text-[#383836]" strokeWidth={2.5} />
               </motion.div>
               <p className="font-semibold" style={{ color: "#383836" }}>
                 Inquiry sent! We'll be in touch soon.

@@ -52,6 +52,45 @@ a, button {
   transition: all 0.2s ease;
 }
 
+/* Elegant serif display headings (luxury e-commerce per UI/UX guidance) */
+.font-display {
+  font-family: var(--font-cormorant), Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+/* Arabic should stay on the geometric sans — serif latin font has no Arabic glyphs */
+html[lang="ar"] .font-display {
+  font-family: var(--font-poppins), sans-serif;
+}
+
+/* ── GLASSMORPHISM ─────────────────────────────────────────────── */
+.glass-dark {
+  background: rgba(40, 40, 38, 0.65);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px) saturate(130%);
+  -webkit-backdrop-filter: blur(12px) saturate(130%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* ── AURORA animated mesh background ───────────────────────────── */
+@keyframes kite-aurora {
+  0%, 100% { transform: translate3d(0,0,0) scale(1); }
+  33%      { transform: translate3d(4%, -3%, 0) scale(1.1); }
+  66%      { transform: translate3d(-3%, 3%, 0) scale(0.95); }
+}
+.aurora-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  will-change: transform;
+  animation: kite-aurora 16s ease-in-out infinite;
+}
+
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--kite-grey); }
 ::-webkit-scrollbar-thumb { background: var(--kite-charcoal); border-radius: 3px; }

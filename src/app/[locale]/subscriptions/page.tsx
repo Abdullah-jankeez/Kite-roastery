@@ -7,6 +7,7 @@ import PageHeader from "@/components/PageHeader";
 import FadeIn from "@/components/FadeIn";
 import TiltCard from "@/components/TiltCard";
 import MagneticButton from "@/components/MagneticButton";
+import Icon, { IconName } from "@/components/Icon";
 
 export default function SubscriptionsPage() {
   const t = useTranslations("subscriptions");
@@ -15,11 +16,11 @@ export default function SubscriptionsPage() {
   const { addItem } = useCart();
   const subs = products.filter((p) => p.category === "subscription");
 
-  const plans = [
-    { key: "weekly",   icon: "🔥", popular: false, color: "#e79a3d" },
-    { key: "biweekly", icon: "⭐", popular: true,  color: "#fdd451" },
-    { key: "monthly",  icon: "🌱", popular: false, color: "#96d2b2" },
-  ] as const;
+  const plans: { key: string; icon: IconName; popular: boolean; color: string }[] = [
+    { key: "weekly",   icon: "flame", popular: false, color: "#e79a3d" },
+    { key: "biweekly", icon: "star",  popular: true,  color: "#fdd451" },
+    { key: "monthly",  icon: "leaf",  popular: false, color: "#96d2b2" },
+  ];
 
   return (
     <div className="min-h-screen bg-white">
@@ -57,15 +58,15 @@ export default function SubscriptionsPage() {
                     </motion.span>
                   )}
                   <motion.div
-                    className="w-16 h-16 mx-auto rounded-full flex items-center justify-center text-3xl mb-4 shadow-md"
+                    className="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-4 shadow-md"
                     style={{ backgroundColor: color }}
-                    whileHover={{ rotate: [0, -15, 15, 0], scale: 1.15 }}
+                    whileHover={{ rotate: [0, -12, 12, 0], scale: 1.12 }}
                     transition={{ duration: 0.6 }}
                   >
-                    {icon}
+                    <Icon name={icon} className="w-8 h-8 text-[#383836]" strokeWidth={1.8} />
                   </motion.div>
                   <h3
-                    className="text-xl font-black mb-2"
+                    className="font-display text-2xl font-semibold mb-2"
                     style={{ color: popular ? "#fdd451" : "#383836" }}
                   >
                     {t(key)}
@@ -96,15 +97,16 @@ export default function SubscriptionsPage() {
                   className="group border border-gray-100 rounded-3xl p-8 hover:shadow-2xl transition-shadow h-full bg-white"
                 >
                   <motion.div
-                    className="text-4xl mb-4 inline-block"
-                    animate={{ rotate: [0, -8, 8, -6, 6, 0] }}
+                    className="w-14 h-14 mb-4 rounded-2xl flex items-center justify-center"
+                    style={{ backgroundColor: "#fdd451" }}
+                    animate={{ rotate: [0, -6, 6, 0] }}
                     transition={{
                       duration: 3,
                       repeat: Infinity,
                       repeatDelay: 2 + i,
                     }}
                   >
-                    📦
+                    <Icon name="repeat" className="w-7 h-7 text-[#383836]" strokeWidth={1.8} />
                   </motion.div>
                   <h3
                     className="text-lg font-black mb-2"

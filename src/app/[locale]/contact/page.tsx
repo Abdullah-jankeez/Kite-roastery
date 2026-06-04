@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import PageHeader from "@/components/PageHeader";
 import FadeIn from "@/components/FadeIn";
 import MagneticButton from "@/components/MagneticButton";
+import Icon, { IconName } from "@/components/Icon";
 
 export default function ContactPage() {
   const t = useTranslations("contact");
@@ -16,26 +17,26 @@ export default function ContactPage() {
     setSent(true);
   }
 
-  const infoItems = [
+  const infoItems: { label: string; value: string; href: string; icon: IconName; color: string }[] = [
     {
       label: t("email"),
       value: "Kiteroastery@gmail.com",
       href: "mailto:Kiteroastery@gmail.com",
-      icon: "✉️",
+      icon: "mail",
       color: "#91d3c7",
     },
     {
       label: t("phone"),
       value: "07846221065",
       href: "tel:07846221065",
-      icon: "📞",
+      icon: "phone",
       color: "#fdd451",
     },
     {
       label: t("address"),
       value: t("addressVal"),
       href: "https://maps.google.com/?q=33.30714416503906,44.44929504394531",
-      icon: "📍",
+      icon: "mapPin",
       color: "#f179af",
     },
   ];
@@ -51,12 +52,12 @@ export default function ContactPage() {
             <FadeIn key={label} delay={i * 0.1} direction="left">
               <div className="group flex gap-4 items-start">
                 <motion.span
-                  className="w-12 h-12 flex items-center justify-center rounded-full text-xl shadow-md flex-shrink-0"
+                  className="w-12 h-12 flex items-center justify-center rounded-2xl shadow-md flex-shrink-0"
                   style={{ backgroundColor: color }}
-                  whileHover={{ rotate: [0, -12, 12, 0], scale: 1.15 }}
+                  whileHover={{ rotate: [0, -12, 12, 0], scale: 1.12 }}
                   transition={{ duration: 0.6 }}
                 >
-                  {icon}
+                  <Icon name={icon} className="w-6 h-6 text-[#383836]" strokeWidth={1.8} />
                 </motion.span>
                 <div>
                   <p className="text-xs uppercase tracking-widest text-gray-400 mb-1">
@@ -131,11 +132,12 @@ export default function ContactPage() {
               className="text-center py-16"
             >
               <motion.div
-                className="text-5xl mb-4 inline-block"
+                className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center"
+                style={{ backgroundColor: "#96d2b2" }}
                 animate={{ rotate: [0, -10, 10, 0] }}
                 transition={{ duration: 0.6 }}
               >
-                ✅
+                <Icon name="check" className="w-8 h-8 text-[#383836]" strokeWidth={2.5} />
               </motion.div>
               <p className="font-semibold text-lg" style={{ color: "#383836" }}>
                 {t("form.success")}

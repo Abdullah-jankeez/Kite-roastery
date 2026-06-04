@@ -9,6 +9,7 @@ import FloatingBeans from "@/components/FloatingBeans";
 import MagneticButton from "@/components/MagneticButton";
 import Marquee from "@/components/Marquee";
 import TiltCard from "@/components/TiltCard";
+import Icon, { IconName } from "@/components/Icon";
 
 export default function HomePage() {
   const t = useTranslations("home");
@@ -17,12 +18,12 @@ export default function HomePage() {
   const locale = useLocale();
   const featured = getFeaturedProducts();
 
-  const pillars = [
-    { key: "consistency",  icon: "⚖️", color: "#91d3c7" }, // green wave
-    { key: "innovation",   icon: "💡", color: "#fdd451" }, // mustard
-    { key: "transparency", icon: "🔍", color: "#f179af" }, // soft pink
-    { key: "partnership",  icon: "🤝", color: "#96d2b2" }, // lime green
-  ] as const;
+  const pillars: { key: string; icon: IconName; color: string }[] = [
+    { key: "consistency",  icon: "scale",     color: "#91d3c7" }, // green wave
+    { key: "innovation",   icon: "lightbulb", color: "#fdd451" }, // mustard
+    { key: "transparency", icon: "eye",       color: "#f179af" }, // soft pink
+    { key: "partnership",  icon: "handshake", color: "#96d2b2" }, // lime green
+  ];
 
   // Mouse parallax for hero orbs
   const mx = useMotionValue(0);
@@ -234,7 +235,7 @@ export default function HomePage() {
         <div className="relative max-w-7xl mx-auto">
           <FadeIn className="text-center mb-14">
             <h2
-              className="text-3xl md:text-4xl font-black tracking-tight mb-3"
+              className="font-display text-4xl md:text-6xl font-semibold tracking-tight mb-3"
               style={{ color: "#383836" }}
             >
               {t("featuredTitle")}
@@ -277,13 +278,13 @@ export default function HomePage() {
         <FloatingBeans count={10} color="rgba(253, 212, 81, 0.12)" />
         <FadeIn className="relative max-w-4xl mx-auto text-center">
           <motion.div
-            className="text-5xl mb-6 inline-block"
-            animate={{ rotate: [0, -10, 10, -6, 6, 0] }}
-            transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
+            className="w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center bg-white/10 backdrop-blur-sm border border-white/20"
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           >
-            📦
+            <Icon name="package" className="w-10 h-10 text-[#fdd451]" />
           </motion.div>
-          <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-4 text-white">
+          <h2 className="font-display text-4xl md:text-6xl font-semibold tracking-tight mb-4 text-white">
             {t("subscribeTitle")}
           </h2>
           <p className="text-white/80 mb-8 max-w-xl mx-auto">{t("subscribeSubtitle")}</p>
@@ -304,7 +305,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto">
           <FadeIn className="text-center mb-14">
             <h2
-              className="text-3xl md:text-4xl font-black tracking-tight"
+              className="font-display text-4xl md:text-6xl font-semibold tracking-tight"
               style={{ color: "#383836" }}
             >
               {t("whyTitle")}
@@ -319,14 +320,14 @@ export default function HomePage() {
                     style={{ borderColor: "#dcdddd" }}
                   >
                     <motion.div
-                      className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-2xl shadow-md"
+                      className="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center shadow-md"
                       style={{ backgroundColor: color }}
-                      whileHover={{ rotate: [0, -15, 15, 0], scale: 1.15 }}
+                      whileHover={{ rotate: [0, -12, 12, 0], scale: 1.12 }}
                       transition={{ duration: 0.6 }}
                     >
-                      {icon}
+                      <Icon name={icon} className="w-8 h-8 text-[#383836]" strokeWidth={1.8} />
                     </motion.div>
-                    <h3 className="text-lg font-bold mb-2" style={{ color: "#383836" }}>
+                    <h3 className="text-xl font-bold mb-2" style={{ color: "#383836" }}>
                       {t(key)}
                     </h3>
                     <p className="text-sm text-gray-500 leading-relaxed">{t(`${key}Desc`)}</p>
@@ -349,13 +350,13 @@ export default function HomePage() {
         <FloatingBeans count={8} color="rgba(255,255,255,0.18)" />
         <FadeIn className="relative max-w-4xl mx-auto text-center">
           <motion.div
-            className="text-5xl mb-6 inline-block"
+            className="w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center bg-white/15 backdrop-blur-sm border border-white/25"
             animate={{ y: [0, -6, 0] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
           >
-            ⚗️
+            <Icon name="beaker" className="w-10 h-10 text-white" />
           </motion.div>
-          <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-4 text-white">
+          <h2 className="font-display text-4xl md:text-6xl font-semibold tracking-tight mb-4 text-white">
             {t("toolsTitle")}
           </h2>
           <p className="mb-8 max-w-xl mx-auto text-white/90">

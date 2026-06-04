@@ -4,15 +4,16 @@ import { motion } from "framer-motion";
 import PageHeader from "@/components/PageHeader";
 import FadeIn from "@/components/FadeIn";
 import TiltCard from "@/components/TiltCard";
+import Icon, { IconName } from "@/components/Icon";
 
 export default function AboutPage() {
   const t = useTranslations("about");
 
-  const pillars = [
-    { icon: "⚖️", label: "Consistency",  color: "#91d3c7" },
-    { icon: "💡", label: "Innovation",   color: "#fdd451" },
-    { icon: "🔍", label: "Transparency", color: "#f179af" },
-    { icon: "🤝", label: "Partnership",  color: "#96d2b2" },
+  const pillars: { icon: IconName; label: string; color: string }[] = [
+    { icon: "scale",     label: "Consistency",  color: "#91d3c7" },
+    { icon: "lightbulb", label: "Innovation",   color: "#fdd451" },
+    { icon: "eye",       label: "Transparency", color: "#f179af" },
+    { icon: "handshake", label: "Partnership",  color: "#96d2b2" },
   ];
 
   return (
@@ -36,12 +37,12 @@ export default function AboutPage() {
               <TiltCard glowColor={`${color}55`} maxTilt={12}>
                 <div className="p-6 rounded-2xl border-2 border-gray-100 bg-white h-full hover:shadow-xl transition-shadow">
                   <motion.div
-                    className="w-12 h-12 mx-auto rounded-full flex items-center justify-center text-2xl mb-3 shadow-md"
+                    className="w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-3 shadow-md"
                     style={{ backgroundColor: color }}
-                    whileHover={{ rotate: [0, -15, 15, 0], scale: 1.15 }}
+                    whileHover={{ rotate: [0, -12, 12, 0], scale: 1.12 }}
                     transition={{ duration: 0.6 }}
                   >
-                    {icon}
+                    <Icon name={icon} className="w-7 h-7 text-[#383836]" strokeWidth={1.8} />
                   </motion.div>
                   <p className="font-bold text-sm" style={{ color: "#383836" }}>
                     {label}

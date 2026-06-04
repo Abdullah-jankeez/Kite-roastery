@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/lib/CartContext";
 import { formatIQD } from "@/lib/products";
 import MagneticButton from "@/components/MagneticButton";
+import Icon from "@/components/Icon";
 
 export default function CartPage() {
   const t = useTranslations("cart");
@@ -27,12 +28,13 @@ export default function CartPage() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center px-4 text-center">
         <motion.div
-          className="text-6xl mb-6"
+          className="w-20 h-20 mb-6 rounded-full flex items-center justify-center"
+          style={{ backgroundColor: "#96d2b2" }}
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ type: "spring", stiffness: 200, damping: 15 }}
         >
-          ✅
+          <Icon name="check" className="w-10 h-10 text-[#383836]" strokeWidth={2.5} />
         </motion.div>
         <motion.h2
           className="text-2xl font-bold mb-3"
@@ -66,11 +68,11 @@ export default function CartPage() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center px-4 text-center">
         <motion.div
-          className="text-6xl mb-6"
+          className="w-20 h-20 mb-6 rounded-full flex items-center justify-center bg-gray-100"
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
-          🛒
+          <Icon name="cart" className="w-10 h-10 text-gray-400" />
         </motion.div>
         <h2 className="text-xl font-semibold mb-3 text-gray-500">{t("empty")}</h2>
         <MagneticButton>
@@ -117,11 +119,11 @@ export default function CartPage() {
                       className="flex items-center gap-4 p-4 border-2 border-gray-100 rounded-2xl hover:border-[#91d3c7] hover:shadow-md transition-all"
                     >
                       <motion.div
-                        whileHover={{ rotate: 12, scale: 1.1 }}
-                        className="w-16 h-16 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
+                        whileHover={{ rotate: 8, scale: 1.08 }}
+                        className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0"
                         style={{ backgroundColor: "#dcdddd" }}
                       >
-                        ☕
+                        <Icon name="coffee" className="w-8 h-8 text-[#383836]" strokeWidth={1.5} />
                       </motion.div>
                       <div className="flex-1 min-w-0">
                         <p className="font-semibold truncate" style={{ color: "#383836" }}>

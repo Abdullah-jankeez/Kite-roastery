@@ -8,6 +8,7 @@ import FadeIn from "@/components/FadeIn";
 import PageHeader from "@/components/PageHeader";
 import TiltCard from "@/components/TiltCard";
 import MagneticButton from "@/components/MagneticButton";
+import Icon, { IconName } from "@/components/Icon";
 
 export default function CoffeePage() {
   const t = useTranslations("coffeePage");
@@ -28,21 +29,21 @@ export default function CoffeePage() {
       {/* Process strip — icons wobble on hover */}
       <section className="py-16 px-4 border-b border-gray-100">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-          {[
-            { icon: "🌱", key: "sourced",   color: "#96d2b2" },
-            { icon: "🔥", key: "roasted",   color: "#e79a3d" },
-            { icon: "📦", key: "packed",    color: "#fdd451" },
-            { icon: "🚚", key: "delivered", color: "#91d3c7" },
-          ].map(({ icon, key, color }, i) => (
+          {([
+            { icon: "sprout",  key: "sourced",   color: "#96d2b2" },
+            { icon: "flame",   key: "roasted",   color: "#e79a3d" },
+            { icon: "package", key: "packed",    color: "#fdd451" },
+            { icon: "truck",   key: "delivered", color: "#91d3c7" },
+          ] as { icon: IconName; key: string; color: string }[]).map(({ icon, key, color }, i) => (
             <FadeIn key={key} delay={i * 0.1}>
               <div className="group">
                 <motion.div
-                  className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-2xl shadow-md"
+                  className="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center shadow-md"
                   style={{ backgroundColor: color }}
-                  whileHover={{ rotate: [0, -15, 15, 0], scale: 1.15 }}
+                  whileHover={{ rotate: [0, -12, 12, 0], scale: 1.12 }}
                   transition={{ duration: 0.6 }}
                 >
-                  {icon}
+                  <Icon name={icon} className="w-8 h-8 text-[#383836]" strokeWidth={1.8} />
                 </motion.div>
                 <h3
                   className="font-bold text-sm uppercase tracking-widest mb-2"
@@ -87,13 +88,13 @@ export default function CoffeePage() {
                         background: `linear-gradient(135deg, ${accent} 0%, ${accent}dd 50%, ${accent} 100%)`,
                       }}
                     >
-                      <motion.span
-                        className="text-9xl opacity-40"
+                      <motion.div
+                        className="opacity-50"
                         animate={{ y: [0, -10, 0], rotate: [0, 4, -4, 0] }}
                         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                       >
-                        ☕
-                      </motion.span>
+                        <Icon name="coffee" className="w-32 h-32 text-white" strokeWidth={1} />
+                      </motion.div>
                       <motion.span
                         className="absolute top-4 start-4 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg"
                         style={{ backgroundColor: "#383836", color: "#ffffff" }}
@@ -113,7 +114,7 @@ export default function CoffeePage() {
                       {shop("origin")}: {origin}
                     </p>
                     <h2
-                      className="text-3xl md:text-4xl font-black tracking-tight mb-3"
+                      className="font-display text-4xl md:text-5xl font-semibold tracking-tight mb-3"
                       style={{ color: "#383836" }}
                     >
                       {name}

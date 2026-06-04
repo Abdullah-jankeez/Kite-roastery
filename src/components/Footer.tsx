@@ -3,6 +3,7 @@ import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import Icon from "@/components/Icon";
 
 export default function Footer() {
   const t = useTranslations("footer");
@@ -44,26 +45,27 @@ export default function Footer() {
               />
             </div>
             <p className="text-sm text-gray-400">{t("tagline")}</p>
-            <div className="mt-4 flex flex-col gap-1 text-sm text-gray-400">
+            <div className="mt-4 flex flex-col gap-2 text-sm text-gray-400">
               <a
                 href="https://maps.google.com/?q=33.30714416503906,44.44929504394531"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#91d3c7] transition-colors"
+                className="flex items-center gap-2.5 hover:text-[#91d3c7] transition-colors"
               >
-                📍 {locale === "ar" ? "العراق / بغداد / الكرادة / مجاور حلويات الخاصكي" : "Karada, Baghdad, Iraq"}
+                <Icon name="mapPin" className="w-4 h-4 flex-shrink-0" />
+                {locale === "ar" ? "العراق / بغداد / الكرادة / مجاور حلويات الخاصكي" : "Karada, Baghdad, Iraq"}
               </a>
               <a
                 href="tel:07846221065"
-                className="hover:text-[#91d3c7] transition-colors"
+                className="flex items-center gap-2.5 hover:text-[#91d3c7] transition-colors"
               >
-                📞 07846221065
+                <Icon name="phone" className="w-4 h-4 flex-shrink-0" /> 07846221065
               </a>
               <a
                 href="mailto:Kiteroastery@gmail.com"
-                className="hover:text-[#91d3c7] transition-colors"
+                className="flex items-center gap-2.5 hover:text-[#91d3c7] transition-colors"
               >
-                ✉️ Kiteroastery@gmail.com
+                <Icon name="mail" className="w-4 h-4 flex-shrink-0" /> Kiteroastery@gmail.com
               </a>
             </div>
           </div>

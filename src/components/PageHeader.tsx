@@ -38,7 +38,7 @@ export default function PageHeader({
 
       <div className="relative max-w-3xl mx-auto">
         <motion.h1
-          className="text-4xl md:text-6xl font-black tracking-tight mb-4 text-white"
+          className="font-display text-5xl md:text-7xl font-semibold tracking-tight mb-4 text-white"
           initial={{ opacity: 0, y: 30, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
