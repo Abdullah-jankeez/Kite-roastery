@@ -1,6 +1,7 @@
 "use client";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { getProductsByCategory, formatIQD } from "@/lib/products";
 import { useCart } from "@/lib/CartContext";
@@ -79,30 +80,42 @@ export default function CoffeePage() {
                     reverse ? "md:[direction:rtl]" : ""
                   }`}
                 >
-                  {/* Image / accent panel — animated background + floating cup */}
+                  {/* Image / accent panel */}
                   <TiltCard glowColor={`${accent}66`} maxTilt={8}>
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      className="relative aspect-square rounded-3xl overflow-hidden flex items-center justify-center bg-grain bg-living shadow-xl"
-                      style={{
-                        background: `linear-gradient(135deg, ${accent} 0%, ${accent}dd 50%, ${accent} 100%)`,
-                      }}
-                    >
+                    <Link href={`/${locale}/coffee/${p.id}`}>
                       <motion.div
-                        className="opacity-50"
-                        animate={{ y: [0, -10, 0], rotate: [0, 4, -4, 0] }}
-                        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                        whileHover={{ scale: 1.02 }}
+                        className="relative aspect-square rounded-3xl overflow-hidden flex items-center justify-center bg-grain shadow-xl"
+                        style={{
+                          background: `linear-gradient(135deg, ${accent} 0%, ${accent}dd 50%, ${accent} 100%)`,
+                        }}
                       >
-                        <Icon name="coffee" className="w-32 h-32 text-white" strokeWidth={1} />
+                        {p.image && p.image.startsWith("/coffee/") ? (
+                          <Image
+                            src={p.image}
+                            alt={name}
+                            fill
+                            sizes="(max-width:768px) 100vw, 600px"
+                            className="object-cover"
+                          />
+                        ) : (
+                          <motion.div
+                            className="opacity-50"
+                            animate={{ y: [0, -10, 0], rotate: [0, 4, -4, 0] }}
+                            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                          >
+                            <Icon name="coffee" className="w-32 h-32 text-white" strokeWidth={1} />
+                          </motion.div>
+                        )}
+                        <motion.span
+                          className="absolute top-4 start-4 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg z-10"
+                          style={{ backgroundColor: "#383836", color: "#ffffff" }}
+                          whileHover={{ scale: 1.1 }}
+                        >
+                          {origin}
+                        </motion.span>
                       </motion.div>
-                      <motion.span
-                        className="absolute top-4 start-4 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg"
-                        style={{ backgroundColor: "#383836", color: "#ffffff" }}
-                        whileHover={{ scale: 1.1 }}
-                      >
-                        {origin}
-                      </motion.span>
-                    </motion.div>
+                    </Link>
                   </TiltCard>
 
                   {/* Details */}

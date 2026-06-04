@@ -1,6 +1,7 @@
 "use client";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
+import Image from "next/image";
 import { Product, formatIQD } from "@/lib/products";
 import { useCart } from "@/lib/CartContext";
 import { motion } from "framer-motion";
@@ -50,20 +51,30 @@ export default function ProductCard({ product }: { product: Product }) {
         className="relative h-52 overflow-hidden"
         style={{ backgroundColor: "#dcdddd" }}
       >
-        {/* Product line-icon with subtle float + scale on hover */}
-        <motion.div
-          className="absolute inset-0 flex items-center justify-center"
-          whileHover={{ scale: 1.12, rotate: 4 }}
-          transition={{ type: "spring", stiffness: 180, damping: 16 }}
-        >
+        {/* Real product photo when available, else an animated line-icon */}
+        {product.image && product.image.startsWith("/coffee/") ? (
+          <Image
+            src={product.image}
+            alt={name}
+            fill
+            sizes="(max-width:640px) 100vw, 360px"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
           <motion.div
-            className="opacity-50"
-            animate={{ y: [0, -4, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute inset-0 flex items-center justify-center"
+            whileHover={{ scale: 1.12, rotate: 4 }}
+            transition={{ type: "spring", stiffness: 180, damping: 16 }}
           >
-            <Icon name={productIcon} className="w-16 h-16 text-[#383836]" strokeWidth={1.25} />
+            <motion.div
+              className="opacity-50"
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Icon name={productIcon} className="w-16 h-16 text-[#383836]" strokeWidth={1.25} />
+            </motion.div>
           </motion.div>
-        </motion.div>
+        )}
 
         {/* Color sweep overlay on hover */}
         <span

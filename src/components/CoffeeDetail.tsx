@@ -73,16 +73,16 @@ export default function CoffeeDetail({ product, index }: { product: Product; ind
 
   const related = getProductsByCategory("beans").filter((p) => p.id !== product.id).slice(0, 3);
 
-  const farmRows: { label: string; value: string; icon: IconName }[] = o
-    ? [
+  const farmRows = o
+    ? ([
+        { label: t("producer"), value: isAr ? o.farm.producerAr : o.farm.producerEn, icon: "handshake" },
         { label: t("farm"), value: isAr ? o.farm.farmAr : o.farm.farmEn, icon: "sprout" },
         { label: t("region"), value: isAr ? o.farm.regionAr : o.farm.regionEn, icon: "mapPin" },
         { label: t("altitude"), value: o.farm.altitude, icon: "scaleRatio" },
         { label: t("variety"), value: isAr ? o.farm.varietyAr : o.farm.varietyEn, icon: "leaf" },
         { label: t("process"), value: isAr ? o.farm.processAr : o.farm.processEn, icon: "droplet" },
-        { label: t("producer"), value: isAr ? o.farm.producerAr : o.farm.producerEn, icon: "handshake" },
-        { label: t("harvest"), value: isAr ? o.farm.harvestAr : o.farm.harvestEn, icon: "timer" },
-      ]
+        { label: t("score"), value: isAr ? o.farm.scoreAr : o.farm.scoreEn, icon: "star" },
+      ] as { label: string; value?: string; icon: IconName }[]).filter((r) => r.value)
     : [];
 
   return (
@@ -291,8 +291,18 @@ export default function CoffeeDetail({ product, index }: { product: Product; ind
                         className="relative aspect-square rounded-2xl overflow-hidden flex items-center justify-center mb-4 bg-grain"
                         style={{ background: `linear-gradient(135deg, ${rAccent} 0%, ${rAccent}cc 100%)` }}
                       >
-                        <Icon name="coffee" className="w-16 h-16 text-white opacity-50" strokeWidth={1} />
-                        <span className="absolute top-3 start-3 text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-[#383836] text-white">
+                        {p.image && p.image.startsWith("/coffee/") ? (
+                          <Image
+                            src={p.image}
+                            alt={isAr ? p.nameAr : p.nameEn}
+                            fill
+                            sizes="(max-width:768px) 100vw, 360px"
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                        ) : (
+                          <Icon name="coffee" className="w-16 h-16 text-white opacity-50" strokeWidth={1} />
+                        )}
+                        <span className="absolute top-3 start-3 z-10 text-xs font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-[#383836] text-white">
                           {isAr ? p.originAr : p.originEn}
                         </span>
                       </div>
