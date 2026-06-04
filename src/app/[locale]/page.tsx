@@ -96,8 +96,9 @@ export default function HomePage() {
         <FloatingBeans count={18} color="rgba(253, 212, 81, 0.16)" />
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          {/* KITE wordmark — letter-by-letter reveal with hover lift */}
-          <div className="text-[clamp(5rem,18vw,14rem)] font-black tracking-tight leading-none mb-4 select-none text-white flex justify-center">
+          {/* KITE wordmark — letter-by-letter reveal with hover lift.
+              dir="ltr" so the Latin brand name never reverses in Arabic (RTL). */}
+          <div dir="ltr" className="text-[clamp(5rem,18vw,14rem)] font-black tracking-tight leading-none mb-4 select-none text-white flex justify-center">
             {"KITE".split("").map((ch, i) => (
               <motion.span
                 key={i}
