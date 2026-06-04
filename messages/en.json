@@ -65,7 +65,26 @@
     },
     "ctaTitle": "Find your next favorite cup",
     "ctaSubtitle": "Explore our full lineup of beans, brewing tools, and subscriptions.",
-    "ctaButton": "Visit the Shop"
+    "ctaButton": "Visit the Shop",
+    "readStory": "Read the full story"
+  },
+  "coffeeDetail": {
+    "backToCoffee": "Back to all coffee",
+    "theStory": "The Story",
+    "fromTheFarm": "From the Farm",
+    "farm": "Farm",
+    "region": "Region",
+    "altitude": "Altitude",
+    "variety": "Variety",
+    "process": "Process",
+    "producer": "Producer",
+    "harvest": "Harvest",
+    "meetTheFarmer": "Meet the Producer",
+    "gallery": "Gallery",
+    "photoComingSoon": "Photo coming soon",
+    "farmerPhotoSoon": "Producer photo coming soon",
+    "relatedTitle": "More single origins",
+    "notFound": "Coffee not found"
   },
   "shop": {
     "title": "Shop",

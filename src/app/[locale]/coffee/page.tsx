@@ -113,12 +113,14 @@ export default function CoffeePage() {
                     >
                       {shop("origin")}: {origin}
                     </p>
-                    <h2
-                      className="font-display text-4xl md:text-5xl font-semibold tracking-tight mb-3"
-                      style={{ color: "#383836" }}
-                    >
-                      {name}
-                    </h2>
+                    <Link href={`/${locale}/coffee/${p.id}`}>
+                      <h2
+                        className="font-display text-4xl md:text-5xl font-semibold tracking-tight mb-3 hover:opacity-70 transition-opacity cursor-pointer"
+                        style={{ color: "#383836" }}
+                      >
+                        {name}
+                      </h2>
+                    </Link>
                     {roast && (
                       <p className="text-sm text-gray-500 mb-2">
                         {shop("roast")}:{" "}
@@ -160,6 +162,15 @@ export default function CoffeePage() {
                         </motion.button>
                       </MagneticButton>
                     </div>
+
+                    <Link
+                      href={`/${locale}/coffee/${p.id}`}
+                      className="link-underline inline-flex items-center gap-2 mt-5 text-sm font-semibold"
+                      style={{ color: "#383836" }}
+                    >
+                      {t("readStory")}
+                      <span aria-hidden>→</span>
+                    </Link>
                   </div>
                 </article>
               </FadeIn>

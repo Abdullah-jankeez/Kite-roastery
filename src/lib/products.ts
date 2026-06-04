@@ -1,3 +1,33 @@
+export type FarmInfo = {
+  farmEn: string;
+  farmAr: string;
+  regionEn: string;
+  regionAr: string;
+  altitude: string;        // e.g. "1,800–2,000 masl"
+  varietyEn: string;
+  varietyAr: string;
+  processEn: string;
+  processAr: string;
+  producerEn: string;
+  producerAr: string;
+  harvestEn: string;
+  harvestAr: string;
+};
+
+export type OriginContent = {
+  storyEn: string;
+  storyAr: string;
+  farm: FarmInfo;
+  farmerNameEn?: string;
+  farmerNameAr?: string;
+  farmerBioEn?: string;
+  farmerBioAr?: string;
+  /** Real image paths — when provided they render; otherwise an elegant placeholder shows. */
+  heroImage?: string;
+  farmerImage?: string;
+  gallery?: string[];
+};
+
 export type Product = {
   id: string;
   category: "beans" | "tools" | "subscription";
@@ -15,6 +45,8 @@ export type Product = {
   price: number; // IQD
   image: string; // placeholder
   featured?: boolean;
+  /** Rich origin storytelling for the dedicated coffee detail page. */
+  origin?: OriginContent;
 };
 
 export const products: Product[] = [
@@ -35,6 +67,33 @@ export const products: Product[] = [
     price: 15000,
     image: "/images/brazil-caixa.jpg",
     featured: true,
+    origin: {
+      storyEn:
+        "“Caixa de Frutas” means “box of fruits” — a nod to the layered sweetness this lot develops on the drying patios. Grown in the rolling hills of Minas Gerais, the cherries are left to dry whole in the sun, concentrating sugars that give the cup its signature depth.",
+      storyAr:
+        "تعني «كايشا دي فروتاس» «صندوق الفواكه» — إشارة إلى الحلاوة المتعددة الطبقات التي يطوّرها هذا المحصول على منصات التجفيف. تُزرع في تلال ميناس جيرايس، وتُترك الكرز ليجف كاملاً تحت الشمس، مما يركّز السكريات التي تمنح الفنجان عمقه المميز.",
+      farm: {
+        farmEn: "Fazenda Santa Rita",
+        farmAr: "مزرعة سانتا ريتا",
+        regionEn: "Minas Gerais, Brazil",
+        regionAr: "ميناس جيرايس، البرازيل",
+        altitude: "1,100–1,300 masl",
+        varietyEn: "Yellow Catuaí, Mundo Novo",
+        varietyAr: "كاتواي الأصفر، موندو نوفو",
+        processEn: "Natural (sun-dried)",
+        processAr: "طبيعي (مجفف بالشمس)",
+        producerEn: "Família Pereira",
+        producerAr: "عائلة بيريرا",
+        harvestEn: "May – August",
+        harvestAr: "مايو – أغسطس",
+      },
+      farmerNameEn: "João Pereira",
+      farmerNameAr: "جواو بيريرا",
+      farmerBioEn:
+        "A third-generation coffee grower, João manages the patios by hand, turning the cherries every few hours to ensure an even, slow dry.",
+      farmerBioAr:
+        "مزارع قهوة من الجيل الثالث، يدير جواو منصات التجفيف يدوياً، ويقلّب الكرز كل بضع ساعات لضمان تجفيف بطيء ومتساوٍ.",
+    },
   },
   {
     id: "guatemala-alta",
@@ -53,6 +112,33 @@ export const products: Product[] = [
     price: 17000,
     image: "/images/guatemala-alta.jpg",
     featured: true,
+    origin: {
+      storyEn:
+        "High in the volcanic highlands, cool nights slow the cherries' growth and build the dense, sweet body this coffee is known for. Washed and dried on raised beds, it delivers the classic chocolate-and-caramel profile that makes Guatemalan coffee a roaster's favourite.",
+      storyAr:
+        "في المرتفعات البركانية العالية، تبطئ الليالي الباردة نمو الكرز وتبني الجسم الكثيف والحلو الذي تشتهر به هذه القهوة. تُغسل وتُجفف على أسرّة مرتفعة، لتقدّم نكهة الشوكولاتة والكراميل الكلاسيكية.",
+      farm: {
+        farmEn: "Finca La Esperanza",
+        farmAr: "مزرعة لا إسبيرانزا",
+        regionEn: "Huehuetenango, Guatemala",
+        regionAr: "هويهويتينانغو، غواتيمالا",
+        altitude: "1,600–1,900 masl",
+        varietyEn: "Bourbon, Caturra",
+        varietyAr: "بوربون، كاتورا",
+        processEn: "Fully washed",
+        processAr: "مغسول بالكامل",
+        producerEn: "Smallholder cooperative",
+        producerAr: "تعاونية صغار المزارعين",
+        harvestEn: "January – March",
+        harvestAr: "يناير – مارس",
+      },
+      farmerNameEn: "La Esperanza Cooperative",
+      farmerNameAr: "تعاونية لا إسبيرانزا",
+      farmerBioEn:
+        "Over 80 smallholder families pool their harvest at a shared washing station, combining tradition with careful modern processing.",
+      farmerBioAr:
+        "أكثر من ٨٠ عائلة من صغار المزارعين يجمعون محصولهم في محطة غسيل مشتركة، يمزجون التقاليد بالمعالجة الحديثة الدقيقة.",
+    },
   },
   {
     id: "ethiopia-yirgacheffe",
@@ -71,6 +157,33 @@ export const products: Product[] = [
     price: 18000,
     image: "/images/ethiopia.jpg",
     featured: true,
+    origin: {
+      storyEn:
+        "Yirgacheffe is the birthplace of coffee, and this washed lot shows why. Heirloom varieties native to the region — passed down through generations of wild forest coffee — give an unmistakable jasmine aroma and bright citrus lift.",
+      storyAr:
+        "يرغاشيفي هي مهد القهوة، وهذا المحصول المغسول يُظهر السبب. الأصناف الموروثة الأصلية في المنطقة — المتوارثة عبر أجيال من قهوة الغابات البرية — تمنح رائحة ياسمين لا تُخطئ وإشراقة حمضيات.",
+      farm: {
+        farmEn: "Kochere washing station",
+        farmAr: "محطة كوتشيري للغسيل",
+        regionEn: "Yirgacheffe, Ethiopia",
+        regionAr: "يرغاشيفي، إثيوبيا",
+        altitude: "1,900–2,200 masl",
+        varietyEn: "Indigenous Heirloom",
+        varietyAr: "أصناف موروثة محلية",
+        processEn: "Fully washed",
+        processAr: "مغسول بالكامل",
+        producerEn: "Local smallholders",
+        producerAr: "صغار المزارعين المحليين",
+        harvestEn: "November – January",
+        harvestAr: "نوفمبر – يناير",
+      },
+      farmerNameEn: "Kochere Growers",
+      farmerNameAr: "مزارعو كوتشيري",
+      farmerBioEn:
+        "Hundreds of family plots deliver ripe cherries daily to the Kochere station, where they are hand-sorted before washing.",
+      farmerBioAr:
+        "مئات من قطع الأراضي العائلية تسلّم الكرز الناضج يومياً إلى محطة كوتشيري، حيث يُفرز يدوياً قبل الغسيل.",
+    },
   },
   {
     id: "colombia-huila",
@@ -88,6 +201,33 @@ export const products: Product[] = [
     weight: "250g",
     price: 16000,
     image: "/images/colombia.jpg",
+    origin: {
+      storyEn:
+        "Huila's steep, sun-drenched slopes and rich volcanic soil produce some of Colombia's most balanced coffees. Hand-picked and carefully washed, this lot is sweet, clean, and endlessly drinkable.",
+      storyAr:
+        "منحدرات هويلا الحادة المشمسة وتربتها البركانية الغنية تنتج بعضاً من أكثر قهوات كولومبيا توازناً. يُقطف يدوياً ويُغسل بعناية، وهذا المحصول حلو ونظيف وسهل الشرب.",
+      farm: {
+        farmEn: "Finca El Mirador",
+        farmAr: "مزرعة إل ميرادور",
+        regionEn: "Huila, Colombia",
+        regionAr: "هويلا، كولومبيا",
+        altitude: "1,500–1,750 masl",
+        varietyEn: "Castillo, Colombia",
+        varietyAr: "كاستيلو، كولومبيا",
+        processEn: "Fully washed",
+        processAr: "مغسول بالكامل",
+        producerEn: "Don Hernán Muñoz",
+        producerAr: "دون هيرنان مونيوز",
+        harvestEn: "April – June",
+        harvestAr: "أبريل – يونيو",
+      },
+      farmerNameEn: "Hernán Muñoz",
+      farmerNameAr: "هيرنان مونيوز",
+      farmerBioEn:
+        "Hernán farms two hectares with his family, depulping and fermenting each day's pick the same evening to lock in clarity.",
+      farmerBioAr:
+        "يزرع هيرنان هكتارين مع عائلته، يقشّر ويخمّر قطاف كل يوم في المساء نفسه للحفاظ على نقاء النكهة.",
+    },
   },
   {
     id: "kenya-aa",
@@ -105,6 +245,33 @@ export const products: Product[] = [
     weight: "250g",
     price: 19000,
     image: "/images/kenya.jpg",
+    origin: {
+      storyEn:
+        "“AA” is Kenya's top grade — the largest, densest beans. Grown on red volcanic soil and processed with Kenya's meticulous double-fermentation washing, this cup is intense, juicy, and famously wine-like.",
+      storyAr:
+        "«AA» هي أعلى درجة في كينيا — أكبر الحبوب وأكثرها كثافة. تُزرع على تربة بركانية حمراء وتُعالج بغسيل التخمير المزدوج الدقيق، لتقدّم فنجاناً مكثفاً وعصيرياً بنكهة نبيذية مشهورة.",
+      farm: {
+        farmEn: "Nyeri smallholder factory",
+        farmAr: "مصنع نيري لصغار المزارعين",
+        regionEn: "Nyeri County, Kenya",
+        regionAr: "مقاطعة نيري، كينيا",
+        altitude: "1,700–1,920 masl",
+        varietyEn: "SL28, SL34, Ruiru 11",
+        varietyAr: "SL28، SL34، رويرو ١١",
+        processEn: "Washed (double fermentation)",
+        processAr: "مغسول (تخمير مزدوج)",
+        producerEn: "Nyeri cooperative society",
+        producerAr: "جمعية نيري التعاونية",
+        harvestEn: "October – December",
+        harvestAr: "أكتوبر – ديسمبر",
+      },
+      farmerNameEn: "Nyeri Cooperative",
+      farmerNameAr: "تعاونية نيري",
+      farmerBioEn:
+        "Members deliver cherries to a shared “factory” (washing station) where Kenya's signature clean, bright profile is built through careful soaking and grading.",
+      farmerBioAr:
+        "يسلّم الأعضاء الكرز إلى «مصنع» مشترك (محطة غسيل) حيث تُبنى نكهة كينيا النظيفة المشرقة عبر النقع والتصنيف الدقيق.",
+    },
   },
   {
     id: "subscription-monthly",

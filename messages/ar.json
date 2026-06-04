@@ -65,7 +65,26 @@
     },
     "ctaTitle": "اعثر على فنجانك المفضل القادم",
     "ctaSubtitle": "تصفّح قائمتنا الكاملة من الحبوب وأدوات التحضير والاشتراكات.",
-    "ctaButton": "زيارة المتجر"
+    "ctaButton": "زيارة المتجر",
+    "readStory": "اقرأ القصة كاملة"
+  },
+  "coffeeDetail": {
+    "backToCoffee": "العودة إلى كل القهوة",
+    "theStory": "القصة",
+    "fromTheFarm": "من المزرعة",
+    "farm": "المزرعة",
+    "region": "المنطقة",
+    "altitude": "الارتفاع",
+    "variety": "الصنف",
+    "process": "المعالجة",
+    "producer": "المنتِج",
+    "harvest": "الحصاد",
+    "meetTheFarmer": "تعرّف على المنتِج",
+    "gallery": "معرض الصور",
+    "photoComingSoon": "الصورة قريباً",
+    "farmerPhotoSoon": "صورة المنتِج قريباً",
+    "relatedTitle": "أصول أحادية أخرى",
+    "notFound": "القهوة غير موجودة"
   },
   "shop": {
     "title": "المتجر",

@@ -1,5 +1,6 @@
 "use client";
 import { useTranslations, useLocale } from "next-intl";
+import Link from "next/link";
 import { Product, formatIQD } from "@/lib/products";
 import { useCart } from "@/lib/CartContext";
 import { motion } from "framer-motion";
@@ -88,12 +89,20 @@ export default function ProductCard({ product }: { product: Product }) {
 
       {/* Content */}
       <div className="flex flex-col flex-1 p-5">
-        <h3
-          className="font-bold text-base leading-snug mb-1 transition-colors group-hover:text-[--color-charcoal]"
-          style={{ color: "#383836" }}
-        >
-          {name}
-        </h3>
+        {product.category === "beans" ? (
+          <Link href={`/${locale}/coffee/${product.id}`}>
+            <h3
+              className="font-bold text-base leading-snug mb-1 transition-colors hover:text-[#91d3c7] cursor-pointer"
+              style={{ color: "#383836" }}
+            >
+              {name}
+            </h3>
+          </Link>
+        ) : (
+          <h3 className="font-bold text-base leading-snug mb-1" style={{ color: "#383836" }}>
+            {name}
+          </h3>
+        )}
 
         {origin && (
           <p className="text-xs text-gray-500 mb-2">
