@@ -58,6 +58,26 @@ export default function AdminOrdersPage() {
     }
   }, [load]);
 
+  async function setStatus(id: string, status: string) {
+    // optimistic update
+    setOrders((prev) => prev.map((o) => (o.id === id ? { ...o, status } : o)));
+    await fetch("/api/orders", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json", "x-admin-password": password },
+      body: JSON.stringify({ id, status }),
+    });
+  }
+
+  async function remove(id: string) {
+    if (!confirm("Delete this order permanently?")) return;
+    setOrders((prev) => prev.filter((o) => o.id !== id));
+    await fetch("/api/orders", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json", "x-admin-password": password },
+      body: JSON.stringify({ id }),
+    });
+  }
+
   if (!authed) {
     return (
       <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#f4f4f3", padding: 24 }}>
@@ -159,6 +179,31 @@ export default function AdminOrdersPage() {
                     📝 {o.notes}
                   </p>
                 )}
+
+                {/* Actions */}
+                <div style={{ display: "flex", gap: 8, marginTop: 14, flexWrap: "wrap" }}>
+                  {o.status === "new" ? (
+                    <button
+                      onClick={() => setStatus(o.id, "done")}
+                      style={{ padding: "8px 16px", borderRadius: 999, border: "none", background: TEAL, color: "#fff", fontWeight: 700, fontSize: 13, cursor: "pointer" }}
+                    >
+                      ✓ Mark as done
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => setStatus(o.id, "new")}
+                      style={{ padding: "8px 16px", borderRadius: 999, border: "1.5px solid #ddd", background: "#fff", color: CHARCOAL, fontWeight: 600, fontSize: 13, cursor: "pointer" }}
+                    >
+                      ↩ Mark as new
+                    </button>
+                  )}
+                  <button
+                    onClick={() => remove(o.id)}
+                    style={{ padding: "8px 16px", borderRadius: 999, border: "1.5px solid #f0c4c4", background: "#fff", color: "#c0392b", fontWeight: 600, fontSize: 13, cursor: "pointer" }}
+                  >
+                    🗑 Delete
+                  </button>
+                </div>
               </div>
             ))}
           </div>
