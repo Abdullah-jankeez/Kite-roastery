@@ -6,6 +6,7 @@ import PageHeader from "@/components/PageHeader";
 import FadeIn from "@/components/FadeIn";
 import MagneticButton from "@/components/MagneticButton";
 import Icon from "@/components/Icon";
+import { openWhatsApp } from "@/lib/whatsapp";
 
 export default function WholesalePage() {
   const t = useTranslations("wholesale");
@@ -14,6 +15,15 @@ export default function WholesalePage() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    const msg =
+      `*Kite Coffee — Wholesale inquiry*\n` +
+      `Business: ${form.business}\n` +
+      `Name: ${form.name}\n` +
+      `Email: ${form.email}\n` +
+      `Phone: ${form.phone}\n` +
+      `Est. weekly volume: ${form.volume} kg\n` +
+      `Message: ${form.message}`;
+    openWhatsApp(msg);
     setSent(true);
   }
 

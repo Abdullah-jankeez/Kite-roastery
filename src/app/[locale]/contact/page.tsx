@@ -6,6 +6,7 @@ import PageHeader from "@/components/PageHeader";
 import FadeIn from "@/components/FadeIn";
 import MagneticButton from "@/components/MagneticButton";
 import Icon, { IconName } from "@/components/Icon";
+import { openWhatsApp } from "@/lib/whatsapp";
 
 export default function ContactPage() {
   const t = useTranslations("contact");
@@ -14,6 +15,12 @@ export default function ContactPage() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    const msg =
+      `*Kite Coffee — Contact message*\n` +
+      `Name: ${form.name}\n` +
+      `Email: ${form.email}\n` +
+      `Message: ${form.message}`;
+    openWhatsApp(msg);
     setSent(true);
   }
 

@@ -17,11 +17,45 @@ export default function CartPage() {
   const [checkout, setCheckout] = useState(false);
   const [form, setForm] = useState({ name: "", phone: "", address: "", notes: "" });
   const [success, setSuccess] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    clearCart();
-    setSuccess(true);
+    setSubmitting(true);
+    setErrorMsg("");
+    try {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customer: form.name,
+          phone: form.phone,
+          address: form.address,
+          notes: form.notes,
+          locale,
+          total,
+          items: items.map(({ product, qty }) => ({
+            id: product.id,
+            name: product.nameEn,
+            qty,
+            price: product.price,
+          })),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || "Could not place the order. Please try again.");
+      }
+      clearCart();
+      setSuccess(true);
+    } catch (err) {
+      setErrorMsg(
+        err instanceof Error ? err.message : "Could not place the order. Please try again."
+      );
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (success) {
@@ -282,6 +316,12 @@ export default function CartPage() {
               ))}
             </motion.div>
 
+            {errorMsg && (
+              <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+                {errorMsg}
+              </p>
+            )}
+
             <div className="flex gap-3">
               <motion.button
                 type="button"
@@ -295,12 +335,13 @@ export default function CartPage() {
               <MagneticButton className="flex-1">
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="w-full py-3 text-sm font-bold rounded-full shadow-md hover:shadow-xl transition-shadow"
+                  disabled={submitting}
+                  whileHover={{ scale: submitting ? 1 : 1.02 }}
+                  whileTap={{ scale: submitting ? 1 : 0.97 }}
+                  className="w-full py-3 text-sm font-bold rounded-full shadow-md hover:shadow-xl transition-shadow disabled:opacity-60 disabled:cursor-not-allowed"
                   style={{ backgroundColor: "#383836", color: "#fdd451" }}
                 >
-                  {c("submit")}
+                  {submitting ? "…" : c("submit")}
                 </motion.button>
               </MagneticButton>
             </div>
