@@ -10,6 +10,7 @@ import MagneticButton from "@/components/MagneticButton";
 import Marquee from "@/components/Marquee";
 import TiltCard from "@/components/TiltCard";
 import Icon, { IconName } from "@/components/Icon";
+import CoffeeShowcase from "@/components/CoffeeShowcase";
 
 export default function HomePage() {
   const t = useTranslations("home");
@@ -225,6 +226,9 @@ export default function HomePage() {
           ))}
         </Marquee>
       </section>
+
+      {/* ── COFFEE SHOWCASE — rotating coverflow of real bags ────────── */}
+      <CoffeeShowcase />
 
       {/* ── FEATURED COFFEES ─────────────────────────────────────────── */}
       <section className="relative py-20 px-4 bg-white overflow-hidden">
