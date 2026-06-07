@@ -51,16 +51,16 @@ export default function HomePage() {
         className="relative flex items-center justify-center min-h-[92vh] overflow-hidden bg-grain"
         style={{
           background:
-            "radial-gradient(ellipse at 30% 20%, #4a4a48 0%, #383836 55%, #2b2b2a 100%)",
+            "radial-gradient(ellipse at 30% 15%, #ffffff 0%, #faf9f7 55%, #f1efe9 100%)",
         }}
       >
-        {/* Mouse-parallax gradient orbs */}
+        {/* Mouse-parallax gradient orbs — soft brand colour washes on white */}
         <motion.div
-          className="absolute w-[620px] h-[620px] rounded-full opacity-25 blur-3xl"
+          className="absolute w-[620px] h-[620px] rounded-full opacity-40 blur-3xl"
           style={{
             background: "#91d3c7",
-            top: "10%",
-            left: "-10%",
+            top: "6%",
+            left: "-12%",
             x: orbAx,
             y: orbAy,
           }}
@@ -68,11 +68,11 @@ export default function HomePage() {
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute w-[520px] h-[520px] rounded-full opacity-20 blur-3xl"
+          className="absolute w-[520px] h-[520px] rounded-full opacity-30 blur-3xl"
           style={{
             background: "#f179af",
-            bottom: "5%",
-            right: "-10%",
+            bottom: "2%",
+            right: "-12%",
             x: orbBx,
             y: orbBy,
           }}
@@ -80,11 +80,11 @@ export default function HomePage() {
           transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute w-[420px] h-[420px] rounded-full opacity-15 blur-3xl"
+          className="absolute w-[420px] h-[420px] rounded-full opacity-30 blur-3xl"
           style={{
             background: "#fdd451",
-            top: "50%",
-            left: "40%",
+            top: "48%",
+            left: "42%",
             x: orbCx,
             y: orbCy,
           }}
@@ -92,13 +92,17 @@ export default function HomePage() {
           transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
         />
 
-        {/* Floating coffee beans */}
-        <FloatingBeans count={18} color="rgba(253, 212, 81, 0.16)" />
+        {/* Floating coffee beans — subtle charcoal on the light backdrop */}
+        <FloatingBeans count={16} color="rgba(56, 56, 54, 0.10)" />
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           {/* KITE wordmark — letter-by-letter reveal with hover lift.
               dir="ltr" so the Latin brand name never reverses in Arabic (RTL). */}
-          <div dir="ltr" className="text-[clamp(5rem,18vw,14rem)] font-black tracking-tight leading-none mb-4 select-none text-white flex justify-center">
+          <div
+            dir="ltr"
+            className="text-[clamp(5rem,18vw,14rem)] font-black tracking-tight leading-none mb-4 select-none flex justify-center"
+            style={{ color: "#383836" }}
+          >
             {"KITE".split("").map((ch, i) => (
               <motion.span
                 key={i}
@@ -109,7 +113,7 @@ export default function HomePage() {
                   delay: i * 0.08,
                   ease: [0.25, 0.1, 0.25, 1],
                 }}
-                whileHover={{ y: -10, color: "#91d3c7" }}
+                whileHover={{ y: -10, color: "#5BA499" }}
                 className="inline-block cursor-default"
               >
                 {ch}
@@ -142,7 +146,8 @@ export default function HomePage() {
           </motion.div>
 
           <motion.p
-            className="text-white text-lg md:text-2xl font-light mb-2 tracking-wide"
+            className="text-lg md:text-2xl font-light mb-2 tracking-wide"
+            style={{ color: "#4b4b48" }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.6 }}
@@ -152,7 +157,7 @@ export default function HomePage() {
 
           <motion.p
             className="text-2xl md:text-3xl font-semibold mb-10"
-            style={{ color: "#91d3c7" }}
+            style={{ color: "#3f9c8b" }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.8 }}
@@ -178,8 +183,8 @@ export default function HomePage() {
             <MagneticButton>
               <Link
                 href={`/${locale}/about`}
-                className="inline-block px-8 py-4 text-sm font-bold rounded-full border-2 text-white uppercase tracking-widest backdrop-blur-sm hover:bg-white/10 transition-colors"
-                style={{ borderColor: "rgba(255,255,255,0.4)" }}
+                className="inline-block px-8 py-4 text-sm font-bold rounded-full border-2 uppercase tracking-widest hover:bg-black/5 transition-colors"
+                style={{ borderColor: "rgba(56,56,54,0.25)", color: "#383836" }}
               >
                 {hero("learnMore")}
               </Link>
@@ -189,7 +194,7 @@ export default function HomePage() {
 
         {/* Scroll hint */}
         <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 text-xs tracking-widest flex flex-col items-center gap-2"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[#383836]/40 text-xs tracking-widest flex flex-col items-center gap-2"
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >

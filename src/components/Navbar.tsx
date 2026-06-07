@@ -52,11 +52,11 @@ export default function Navbar() {
     <motion.nav
       initial={false}
       animate={{
-        backgroundColor: scrolled ? "rgba(40,40,38,0.72)" : "rgba(40,40,38,1)",
+        backgroundColor: scrolled ? "rgba(255,255,255,0.72)" : "rgba(250,249,247,1)",
       }}
       transition={{ duration: 0.3 }}
-      className={`sticky top-0 z-50 text-white ${
-        scrolled ? "glass-dark shadow-lg" : "shadow-md"
+      className={`sticky top-0 z-50 text-[#383836] ${
+        scrolled ? "glass-light shadow-md" : "shadow-sm border-b border-black/5"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,7 +65,7 @@ export default function Navbar() {
           transition={{ duration: 0.3 }}
           className="flex items-center justify-between"
         >
-          {/* Logo — official KITE master artwork (full lockup, white-on-dark) */}
+          {/* Logo — official KITE master artwork (full lockup, charcoal-on-light) */}
           <Link
             href={`/${locale}`}
             className="group flex items-center"
@@ -78,7 +78,7 @@ export default function Navbar() {
               className="relative"
             >
               <Image
-                src="/logo/kite-full-white.png"
+                src="/logo/kite-full-dark.png"
                 alt="Kite Coffee Roastery"
                 fill
                 priority
@@ -97,7 +97,7 @@ export default function Navbar() {
                   key={l.href}
                   href={l.href}
                   className={`relative px-3 py-2 rounded-full transition-colors ${
-                    active ? "text-[#383836]" : "text-white/90 hover:text-[#91d3c7]"
+                    active ? "text-[#383836]" : "text-[#383836]/75 hover:text-[#3f9c8b]"
                   }`}
                 >
                   {active && (
@@ -119,7 +119,7 @@ export default function Navbar() {
             {/* Language toggle */}
             <button
               onClick={switchLocale}
-              className="text-xs font-semibold border border-white/30 rounded-full px-3 py-1.5 hover:border-[#91d3c7] hover:text-[#91d3c7] transition-colors cursor-pointer"
+              className="text-xs font-semibold border border-black/15 rounded-full px-3 py-1.5 hover:border-[#3f9c8b] hover:text-[#3f9c8b] transition-colors cursor-pointer"
             >
               {otherLabel}
             </button>
@@ -127,7 +127,7 @@ export default function Navbar() {
             {/* Cart */}
             <Link
               href={`/${locale}/cart`}
-              className="relative p-1.5 rounded-full hover:text-[#91d3c7] hover:bg-white/5 transition-colors"
+              className="relative p-1.5 rounded-full hover:text-[#3f9c8b] hover:bg-black/5 transition-colors"
               aria-label="Cart"
             >
               <Icon name="cart" className="h-6 w-6" />
@@ -181,7 +181,7 @@ export default function Navbar() {
               transition={{ duration: 0.25 }}
               className="lg:hidden overflow-hidden"
             >
-              <div className="pb-4 border-t border-white/10 pt-3 flex flex-col gap-1">
+              <div className="pb-4 border-t border-black/10 pt-3 flex flex-col gap-1">
                 {links.map((l) => (
                   <Link
                     key={l.href}
@@ -190,7 +190,7 @@ export default function Navbar() {
                     className={`text-sm px-3 py-2 rounded-lg transition-colors ${
                       isActive(l.href)
                         ? "bg-[#91d3c7] text-[#383836] font-semibold"
-                        : "hover:text-[#91d3c7] hover:bg-white/5"
+                        : "text-[#383836]/80 hover:text-[#3f9c8b] hover:bg-black/5"
                     }`}
                   >
                     {l.label}
