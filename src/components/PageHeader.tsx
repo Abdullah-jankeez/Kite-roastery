@@ -6,7 +6,7 @@ import FloatingBeans from "@/components/FloatingBeans";
 type Props = {
   title: string;
   subtitle?: string;
-  /** Accent color for the slogan/strip, defaults to brand teal */
+  /** Accent color for the subtitle, defaults to deep brand teal (readable on white) */
   accent?: string;
   /** Optional children rendered below subtitle (e.g. CTA) */
   children?: ReactNode;
@@ -15,14 +15,14 @@ type Props = {
 };
 
 /**
- * Shared dark animated hero header used at the top of every sub-page.
- * Adds: living radial gradient, grain, floating beans, brand palette strip,
- * and a subtle scale-on-mount animation for the title.
+ * Shared light animated hero header used at the top of every sub-page.
+ * White-dominant per brand direction: soft cream radial, charcoal serif title,
+ * subtle floating beans, brand palette strip.
  */
 export default function PageHeader({
   title,
   subtitle,
-  accent = "#91d3c7",
+  accent = "#3f9c8b",
   children,
   beans = 10,
 }: Props) {
@@ -31,14 +31,27 @@ export default function PageHeader({
       className="relative py-24 px-4 text-center overflow-hidden bg-grain"
       style={{
         background:
-          "radial-gradient(ellipse at 30% 20%, #4a4a48 0%, #383836 55%, #2b2b2a 100%)",
+          "radial-gradient(ellipse at 30% 15%, #ffffff 0%, #faf9f7 55%, #f1efe9 100%)",
       }}
     >
-      <FloatingBeans count={beans} color="rgba(253, 212, 81, 0.12)" />
+      {/* Soft brand-colour washes */}
+      <div
+        aria-hidden
+        className="absolute -top-24 -start-24 w-96 h-96 rounded-full opacity-30 blur-3xl pointer-events-none"
+        style={{ background: "#91d3c7" }}
+      />
+      <div
+        aria-hidden
+        className="absolute -bottom-32 -end-24 w-96 h-96 rounded-full opacity-20 blur-3xl pointer-events-none"
+        style={{ background: "#fdd451" }}
+      />
+
+      <FloatingBeans count={beans} color="rgba(56, 56, 54, 0.08)" />
 
       <div className="relative max-w-3xl mx-auto">
         <motion.h1
-          className="font-display text-5xl md:text-7xl font-semibold tracking-tight mb-4 text-white"
+          className="font-display text-5xl md:text-7xl font-semibold tracking-tight mb-4"
+          style={{ color: "#383836" }}
           initial={{ opacity: 0, y: 30, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}

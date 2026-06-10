@@ -15,12 +15,16 @@ type CartContextType = {
   clearCart: () => void;
   total: number;
   count: number;
+  /** Last product added — used by the toast. `seq` bumps on every add so
+      repeated adds of the same product re-trigger the toast. */
+  lastAdded: { product: Product; seq: number } | null;
 };
 
 const CartContext = createContext<CartContextType | null>(null);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [lastAdded, setLastAdded] = useState<{ product: Product; seq: number } | null>(null);
 
   useEffect(() => {
     const saved = localStorage.getItem("kite-cart");
@@ -41,6 +45,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       }
       return [...prev, { product, qty: 1 }];
     });
+    setLastAdded((prev) => ({ product, seq: (prev?.seq ?? 0) + 1 }));
   };
 
   const removeItem = (id: string) =>
@@ -60,7 +65,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ items, addItem, removeItem, updateQty, clearCart, total, count }}
+      value={{ items, addItem, removeItem, updateQty, clearCart, total, count, lastAdded }}
     >
       {children}
     </CartContext.Provider>

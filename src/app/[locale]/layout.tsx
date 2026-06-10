@@ -7,6 +7,7 @@ import { CartProvider } from "@/lib/CartContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import CartToast from "@/components/CartToast";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -75,6 +76,7 @@ export default async function LocaleLayout({
             <main className="min-h-screen">{children}</main>
             <Footer />
             <WhatsAppButton />
+            <CartToast />
           </CartProvider>
         </NextIntlClientProvider>
       </body>

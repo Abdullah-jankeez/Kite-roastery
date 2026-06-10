@@ -277,27 +277,31 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── SUBSCRIPTION CTA — animated powder-blue background ───────── */}
+      {/* ── SUBSCRIPTION CTA — light teal wash (white-dominant) ──────── */}
       <section
         className="relative py-20 px-4 overflow-hidden bg-grain bg-living"
         style={{
           background:
-            "linear-gradient(135deg, #303895 0%, #4148b8 50%, #303895 100%)",
+            "linear-gradient(135deg, #eef9f6 0%, #d9f0ea 50%, #eef9f6 100%)",
         }}
       >
-        <FloatingBeans count={10} color="rgba(253, 212, 81, 0.12)" />
+        <FloatingBeans count={10} color="rgba(56, 56, 54, 0.08)" />
         <FadeIn className="relative max-w-4xl mx-auto text-center">
           <motion.div
-            className="w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center bg-white/10 backdrop-blur-sm border border-white/20"
+            className="w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center shadow-md"
+            style={{ backgroundColor: "#91d3c7" }}
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           >
-            <Icon name="package" className="w-10 h-10 text-[#fdd451]" />
+            <Icon name="package" className="w-10 h-10 text-[#383836]" />
           </motion.div>
-          <h2 className="font-display text-4xl md:text-6xl font-semibold tracking-tight mb-4 text-white">
+          <h2
+            className="font-display text-4xl md:text-6xl font-semibold tracking-tight mb-4"
+            style={{ color: "#383836" }}
+          >
             {t("subscribeTitle")}
           </h2>
-          <p className="text-white/80 mb-8 max-w-xl mx-auto">{t("subscribeSubtitle")}</p>
+          <p className="mb-8 max-w-xl mx-auto" style={{ color: "#4b4b48" }}>{t("subscribeSubtitle")}</p>
           <MagneticButton>
             <Link
               href={`/${locale}/subscriptions`}
