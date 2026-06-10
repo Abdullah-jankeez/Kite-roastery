@@ -111,6 +111,12 @@ html[lang="ar"] .font-display {
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
+/* Faint repeating kite-outline pattern (brand book p.13 spirit) */
+.bg-kite-pattern {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><g fill='none' stroke='rgba(56,56,54,0.06)' stroke-width='2' stroke-linecap='round'><path d='M40 14 L62 36 L40 58 L18 36 Z M40 14 L40 58 M18 36 L62 36'/><path d='M40 58 C 36 66, 46 70, 41 78'/></g></svg>");
+  background-size: 120px 120px;
+}
+
 /* ── AURORA animated mesh background ───────────────────────────── */
 @keyframes kite-aurora {
   0%, 100% { transform: translate3d(0,0,0) scale(1); }

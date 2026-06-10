@@ -24,7 +24,7 @@ export default function PageHeader({
   subtitle,
   accent = "#3f9c8b",
   children,
-  beans = 10,
+  beans = 6,
 }: Props) {
   return (
     <section

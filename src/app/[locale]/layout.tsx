@@ -8,6 +8,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import CartToast from "@/components/CartToast";
+import ScrollProgress from "@/components/ScrollProgress";
+import FlyToCart from "@/components/FlyToCart";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -72,11 +74,13 @@ export default async function LocaleLayout({
       <body style={{ fontFamily: "var(--font-poppins), sans-serif" }}>
         <NextIntlClientProvider messages={messages}>
           <CartProvider>
+            <ScrollProgress />
             <Navbar />
             <main className="min-h-screen">{children}</main>
             <Footer />
             <WhatsAppButton />
             <CartToast />
+            <FlyToCart />
           </CartProvider>
         </NextIntlClientProvider>
       </body>

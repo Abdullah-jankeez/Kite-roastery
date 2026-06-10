@@ -1,14 +1,17 @@
 "use client";
 
+import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import { Product, getProductsByCategory, formatIQD } from "@/lib/products";
 import { useCart } from "@/lib/CartContext";
 import Icon, { IconName } from "@/components/Icon";
 import FadeIn from "@/components/FadeIn";
 import MagneticButton from "@/components/MagneticButton";
+import CountUp from "@/components/CountUp";
+import { flyToCart } from "@/components/FlyToCart";
 
 const ACCENTS = ["#91d3c7", "#f179af", "#fdd451", "#e79a3d", "#96d2b2", "#303895"];
 
@@ -71,6 +74,19 @@ export default function CoffeeDetail({ product, index }: { product: Product; ind
   const desc = isAr ? product.descAr : product.descEn;
   const o = product.origin;
 
+  // Parallax: hero photo drifts gently as the page scrolls.
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 90]);
+
+  function handleAdd() {
+    addItem(product);
+    if (o?.heroImage) flyToCart(o.heroImage, heroRef.current);
+  }
+
   const related = getProductsByCategory("beans").filter((p) => p.id !== product.id).slice(0, 3);
 
   const farmRows = o
@@ -101,14 +117,16 @@ export default function CoffeeDetail({ product, index }: { product: Product; ind
       {/* ── HERO ── */}
       <section className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
         <FadeIn direction="right">
-          <PhotoSlot
-            src={o?.heroImage}
-            alt={name}
-            accent={accent}
-            icon="coffee"
-            label={t("photoComingSoon")}
-            className="aspect-square w-full shadow-xl"
-          />
+          <motion.div ref={heroRef} style={{ y: heroY }}>
+            <PhotoSlot
+              src={o?.heroImage}
+              alt={name}
+              accent={accent}
+              icon="coffee"
+              label={t("photoComingSoon")}
+              className="aspect-square w-full shadow-xl"
+            />
+          </motion.div>
         </FadeIn>
 
         <FadeIn direction="left">
@@ -154,7 +172,7 @@ export default function CoffeeDetail({ product, index }: { product: Product; ind
             </div>
             <MagneticButton>
               <motion.button
-                onClick={() => addItem(product)}
+                onClick={handleAdd}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-7 py-3.5 text-sm font-bold rounded-full uppercase tracking-widest shadow-md hover:shadow-xl transition-shadow"
@@ -206,7 +224,17 @@ export default function CoffeeDetail({ product, index }: { product: Product; ind
                       </span>
                       <div>
                         <p className="text-xs uppercase tracking-widest text-gray-400 mb-1">{label}</p>
-                        <p className="font-semibold leading-snug" style={{ color: "#383836" }}>{value}</p>
+                        <p className="font-semibold leading-snug" style={{ color: "#383836" }}>
+                          {label === t("score") && value && !isNaN(parseFloat(value)) ? (
+                            <CountUp
+                              value={parseFloat(value)}
+                              suffix=" / 100"
+                              className="text-lg font-bold"
+                            />
+                          ) : (
+                            value
+                          )}
+                        </p>
                       </div>
                     </div>
                   </FadeIn>

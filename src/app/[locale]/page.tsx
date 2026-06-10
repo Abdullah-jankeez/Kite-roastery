@@ -11,6 +11,7 @@ import Marquee from "@/components/Marquee";
 import TiltCard from "@/components/TiltCard";
 import Icon, { IconName } from "@/components/Icon";
 import CoffeeShowcase from "@/components/CoffeeShowcase";
+import Doodle from "@/components/Doodle";
 
 export default function HomePage() {
   const t = useTranslations("home");
@@ -94,7 +95,23 @@ export default function HomePage() {
         />
 
         {/* Floating coffee beans — subtle charcoal on the light backdrop */}
-        <FloatingBeans count={16} color="rgba(56, 56, 54, 0.10)" />
+        <FloatingBeans count={10} color="rgba(56, 56, 54, 0.10)" />
+
+        {/* Hand-drawn steam doodle rising near the wordmark (brand book p.14) */}
+        <Doodle
+          name="steam"
+          color="#3f9c8b"
+          strokeWidth={4}
+          className="hidden md:block absolute top-[16%] right-[16%] w-16 lg:w-20 opacity-70 pointer-events-none"
+          delay={1.2}
+        />
+        <Doodle
+          name="kite"
+          color="#e79a3d"
+          strokeWidth={4}
+          className="hidden md:block absolute bottom-[18%] left-[12%] w-16 lg:w-20 opacity-60 pointer-events-none"
+          delay={1.6}
+        />
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           {/* KITE wordmark — letter-by-letter reveal with hover lift.
@@ -244,12 +261,21 @@ export default function HomePage() {
         />
         <div className="relative max-w-7xl mx-auto">
           <FadeIn className="text-center mb-14">
-            <h2
-              className="font-display text-4xl md:text-6xl font-semibold tracking-tight mb-3"
-              style={{ color: "#383836" }}
-            >
-              {t("featuredTitle")}
-            </h2>
+            <div className="relative inline-block">
+              <h2
+                className="font-display text-4xl md:text-6xl font-semibold tracking-tight mb-3"
+                style={{ color: "#383836" }}
+              >
+                {t("featuredTitle")}
+              </h2>
+              {/* hand-drawn arrow pointing at the coffees */}
+              <Doodle
+                name="swirlArrow"
+                color="#f179af"
+                strokeWidth={5}
+                className="hidden md:block absolute -end-28 top-1/2 w-20 opacity-80 pointer-events-none rtl:-scale-x-100"
+              />
+            </div>
             <p className="text-gray-500 max-w-xl mx-auto">{t("featuredSubtitle")}</p>
           </FadeIn>
 
@@ -279,13 +305,20 @@ export default function HomePage() {
 
       {/* ── SUBSCRIPTION CTA — light teal wash (white-dominant) ──────── */}
       <section
-        className="relative py-20 px-4 overflow-hidden bg-grain bg-living"
+        className="relative py-20 px-4 overflow-hidden bg-living"
         style={{
           background:
             "linear-gradient(135deg, #eef9f6 0%, #d9f0ea 50%, #eef9f6 100%)",
         }}
       >
-        <FloatingBeans count={10} color="rgba(56, 56, 54, 0.08)" />
+        {/* faint brand kite pattern */}
+        <div aria-hidden className="absolute inset-0 bg-kite-pattern pointer-events-none" />
+        <Doodle
+          name="kite"
+          color="#3f9c8b"
+          strokeWidth={4}
+          className="hidden lg:block absolute top-10 end-[10%] w-20 opacity-50 pointer-events-none"
+        />
         <FadeIn className="relative max-w-4xl mx-auto text-center">
           <motion.div
             className="w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center shadow-md"
@@ -318,12 +351,20 @@ export default function HomePage() {
       <section className="relative py-20 px-4 bg-white overflow-hidden">
         <div className="max-w-6xl mx-auto">
           <FadeIn className="text-center mb-14">
-            <h2
-              className="font-display text-4xl md:text-6xl font-semibold tracking-tight"
-              style={{ color: "#383836" }}
-            >
-              {t("whyTitle")}
-            </h2>
+            <div className="relative inline-block">
+              <Doodle
+                name="beans"
+                color="#e79a3d"
+                strokeWidth={4}
+                className="hidden md:block absolute -start-28 top-1/2 -translate-y-1/2 w-20 opacity-70 pointer-events-none"
+              />
+              <h2
+                className="font-display text-4xl md:text-6xl font-semibold tracking-tight"
+                style={{ color: "#383836" }}
+              >
+                {t("whyTitle")}
+              </h2>
+            </div>
           </FadeIn>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {pillars.map(({ key, icon, color }, i) => (
@@ -361,7 +402,7 @@ export default function HomePage() {
             "linear-gradient(120deg, #f179af 0%, #f48fb9 50%, #f179af 100%)",
         }}
       >
-        <FloatingBeans count={8} color="rgba(255,255,255,0.18)" />
+        <FloatingBeans count={5} color="rgba(255,255,255,0.18)" />
         <FadeIn className="relative max-w-4xl mx-auto text-center">
           <motion.div
             className="w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center bg-white/15 backdrop-blur-sm border border-white/25"

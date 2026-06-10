@@ -126,11 +126,21 @@ export default function Navbar() {
 
             {/* Cart */}
             <Link
+              id="cart-target"
               href={`/${locale}/cart`}
               className="relative p-1.5 rounded-full hover:text-[#3f9c8b] hover:bg-black/5 transition-colors"
               aria-label="Cart"
             >
-              <Icon name="cart" className="h-6 w-6" />
+              {/* key remount wiggles the icon whenever the count changes */}
+              <motion.span
+                key={count}
+                className="block"
+                initial={false}
+                animate={{ rotate: [0, -14, 12, -6, 0] }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+              >
+                <Icon name="cart" className="h-6 w-6" />
+              </motion.span>
               <AnimatePresence>
                 {count > 0 && (
                   <motion.span

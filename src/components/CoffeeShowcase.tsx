@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -30,6 +30,9 @@ export default function CoffeeShowcase() {
   const [active, setActive] = useState(0);
   const [animating, setAnimating] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [hovering, setHovering] = useState(false);
+  const lastInteract = useRef(0);
+  const touchX = useRef<number | null>(null);
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 640);
@@ -38,11 +41,37 @@ export default function CoffeeShowcase() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  function navigate(dir: "next" | "prev") {
+  function navigate(dir: "next" | "prev", manual = true) {
     if (animating || n === 0) return;
+    if (manual) lastInteract.current = Date.now();
     setAnimating(true);
     setActive((p) => (dir === "next" ? (p + 1) % n : (p + n - 1) % n));
     setTimeout(() => setAnimating(false), 650);
+  }
+
+  // Autoplay: advance every 5s unless hovering, recently touched, or tab hidden.
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (document.hidden || hovering) return;
+      if (Date.now() - lastInteract.current < 8000) return;
+      navigate("next", false);
+    }, 5000);
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hovering, n, animating]);
+
+  // Touch swipe (mobile): horizontal drag > 50px flips a card.
+  function onTouchStart(e: React.TouchEvent) {
+    touchX.current = e.touches[0].clientX;
+  }
+  function onTouchEnd(e: React.TouchEvent) {
+    if (touchX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchX.current;
+    touchX.current = null;
+    if (Math.abs(dx) < 50) return;
+    // In LTR a left-swipe (dx<0) means "next"; mirrored in RTL.
+    const forward = isAr ? dx > 0 : dx < 0;
+    navigate(forward ? "next" : "prev");
   }
 
   if (n === 0) return null;
@@ -95,7 +124,12 @@ export default function CoffeeShowcase() {
         backgroundColor: accent,
         transition: `background-color 650ms ${EASE}`,
         minHeight: isMobile ? 560 : 680,
+        touchAction: "pan-y",
       }}
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
     >
       {/* eyebrow */}
       <div className="absolute top-6 inset-x-0 z-40 text-center">

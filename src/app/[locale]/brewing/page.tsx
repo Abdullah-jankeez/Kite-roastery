@@ -1,6 +1,7 @@
 "use client";
+import { useRef } from "react";
 import { useTranslations } from "next-intl";
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 import PageHeader from "@/components/PageHeader";
 import FadeIn from "@/components/FadeIn";
 import Icon, { IconName } from "@/components/Icon";
@@ -97,6 +98,55 @@ const guides: {
   },
 ];
 
+/** Step list with a vertical line that fills as you scroll through the recipe. */
+function StepsTimeline({ guide }: { guide: (typeof guides)[number] }) {
+  const ref = useRef<HTMLOListElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 0.85", "end 0.6"],
+  });
+  const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 26, mass: 0.5 });
+
+  return (
+    <div className="relative">
+      {/* Track + fill line, centred on the step-number circles */}
+      <div
+        aria-hidden
+        className="absolute top-12 bottom-12 start-[45px] w-0.5 rounded bg-gray-100"
+      />
+      <motion.div
+        aria-hidden
+        className="absolute top-12 bottom-12 start-[45px] w-0.5 rounded origin-top"
+        style={{ scaleY, backgroundColor: guide.color }}
+      />
+      <ol ref={ref} className="relative p-8 flex flex-col gap-5">
+        {guide.steps.map((step, i) => (
+          <motion.li
+            key={i}
+            initial={{ opacity: 0, x: -10 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.4, delay: i * 0.06 }}
+            className="flex gap-4 text-sm leading-relaxed text-gray-600 group/step"
+          >
+            <motion.span
+              whileHover={{ scale: 1.2, rotate: 360 }}
+              transition={{ type: "spring", stiffness: 300, damping: 15 }}
+              className="relative z-10 flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white mt-0.5 shadow-sm ring-4 ring-white"
+              style={{ backgroundColor: guide.color }}
+            >
+              {i + 1}
+            </motion.span>
+            <span className="group-hover/step:text-[#383836] transition-colors pt-1">
+              {step}
+            </span>
+          </motion.li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
 export default function BrewingPage() {
   const t = useTranslations("brewing");
 
@@ -166,31 +216,8 @@ export default function BrewingPage() {
                 </div>
               </div>
 
-              {/* Steps */}
-              <ol className="p-8 flex flex-col gap-4">
-                {g.steps.map((step, i) => (
-                  <motion.li
-                    key={i}
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-40px" }}
-                    transition={{ duration: 0.4, delay: i * 0.06 }}
-                    className="flex gap-4 text-sm leading-relaxed text-gray-600 group/step"
-                  >
-                    <motion.span
-                      whileHover={{ scale: 1.2, rotate: 360 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                      className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white mt-0.5 shadow-sm"
-                      style={{ backgroundColor: g.color }}
-                    >
-                      {i + 1}
-                    </motion.span>
-                    <span className="group-hover/step:text-[#383836] transition-colors">
-                      {step}
-                    </span>
-                  </motion.li>
-                ))}
-              </ol>
+              {/* Steps — recipe timeline with a scroll-fill progress line */}
+              <StepsTimeline guide={g} />
             </motion.div>
           </FadeIn>
         ))}

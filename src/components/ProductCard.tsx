@@ -1,4 +1,5 @@
 "use client";
+import { useRef } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
@@ -6,12 +7,22 @@ import { Product, formatIQD } from "@/lib/products";
 import { useCart } from "@/lib/CartContext";
 import { motion } from "framer-motion";
 import Icon, { IconName } from "@/components/Icon";
+import { flyToCart } from "@/components/FlyToCart";
 
 export default function ProductCard({ product }: { product: Product }) {
   const t = useTranslations("shop");
+  const cp = useTranslations("coffeePage");
   const locale = useLocale();
   const { addItem } = useCart();
   const isAr = locale === "ar";
+  const imgAreaRef = useRef<HTMLDivElement>(null);
+
+  function handleAdd() {
+    addItem(product);
+    if (product.image && product.image.startsWith("/coffee/")) {
+      flyToCart(product.image, imgAreaRef.current);
+    }
+  }
 
   const name = isAr ? product.nameAr : product.nameEn;
   const origin = isAr ? product.originAr : product.originEn;
@@ -48,6 +59,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
       {/* Image area */}
       <div
+        ref={imgAreaRef}
         className="relative h-52 overflow-hidden"
         style={{ backgroundColor: "#dcdddd" }}
       >
@@ -96,6 +108,17 @@ export default function ProductCard({ product }: { product: Product }) {
             ? t("filterSubs")
             : t("filterTools")}
         </span>
+
+        {/* "Read the story" reveal — beans only, slides up on hover */}
+        {product.category === "beans" && (
+          <Link
+            href={`/${locale}/coffee/${product.id}`}
+            className="absolute inset-x-0 bottom-0 z-10 translate-y-full group-hover:translate-y-0 transition-transform duration-300 text-white text-xs font-semibold uppercase tracking-widest text-center py-2.5"
+            style={{ backgroundColor: "rgba(56,56,54,0.85)", backdropFilter: "blur(4px)" }}
+          >
+            {cp("readStory")} →
+          </Link>
+        )}
       </div>
 
       {/* Content */}
@@ -139,7 +162,7 @@ export default function ProductCard({ product }: { product: Product }) {
             )}
           </div>
           <motion.button
-            onClick={() => addItem(product)}
+            onClick={handleAdd}
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.94 }}
             className="relative overflow-hidden text-sm font-semibold px-4 py-2 rounded-xl"

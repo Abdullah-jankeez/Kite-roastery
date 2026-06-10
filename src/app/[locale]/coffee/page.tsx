@@ -25,7 +25,7 @@ export default function CoffeePage() {
 
   return (
     <div className="bg-white">
-      <PageHeader title={t("title")} subtitle={t("subtitle")} beans={14} />
+      <PageHeader title={t("title")} subtitle={t("subtitle")} beans={8} />
 
       {/* Process strip — icons wobble on hover */}
       <section className="py-16 px-4 border-b border-gray-100">
