@@ -1,6 +1,7 @@
 "use client";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/lib/CartContext";
@@ -168,10 +169,20 @@ export default function CartPage() {
                     >
                       <motion.div
                         whileHover={{ rotate: 8, scale: 1.08 }}
-                        className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0"
+                        className="relative w-16 h-16 rounded-xl overflow-hidden flex items-center justify-center flex-shrink-0"
                         style={{ backgroundColor: "#dcdddd" }}
                       >
-                        <Icon name="coffee" className="w-8 h-8 text-[#383836]" strokeWidth={1.5} />
+                        {product.image && product.image.startsWith("/coffee/") ? (
+                          <Image
+                            src={product.image}
+                            alt={name}
+                            fill
+                            sizes="64px"
+                            className="object-cover"
+                          />
+                        ) : (
+                          <Icon name="coffee" className="w-8 h-8 text-[#383836]" strokeWidth={1.5} />
+                        )}
                       </motion.div>
                       <div className="flex-1 min-w-0">
                         <p className="font-semibold truncate" style={{ color: "#383836" }}>
