@@ -119,6 +119,7 @@
     "notes": "Order Notes (optional)",
     "submit": "Confirm Order",
     "success": "Order placed! We'll call you to confirm.",
+    "orderRef": "Order reference",
     "cod": "Cash on Delivery — pay when your order arrives."
   },
   "brewing": {

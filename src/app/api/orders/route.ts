@@ -18,6 +18,7 @@ async function notifyTelegram(order: {
   notes?: string | null;
   items: IncomingItem[];
   total: number;
+  orderNo?: string;
 }) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
@@ -27,7 +28,7 @@ async function notifyTelegram(order: {
     .map((it) => `• ${it.name} × ${it.qty} — ${iqd(it.price * it.qty)}`)
     .join("\n");
   const text =
-    `🛒 New Kite order!\n\n` +
+    `🛒 New Kite order!${order.orderNo ? ` (#${order.orderNo})` : ""}\n\n` +
     `👤 ${order.customer}\n` +
     `📞 ${order.phone}\n` +
     `📍 ${order.address}\n\n` +
@@ -81,25 +82,33 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { error } = await supabase.from(ORDERS_TABLE).insert({
-    customer: String(customer).slice(0, 200),
-    phone: String(phone).slice(0, 60),
-    address: String(address).slice(0, 600),
-    notes: notes ? String(notes).slice(0, 1000) : null,
-    items,
-    total: Number(total) || 0,
-    locale: locale || "en",
-    status: "new",
-  });
+  const { data, error } = await supabase
+    .from(ORDERS_TABLE)
+    .insert({
+      customer: String(customer).slice(0, 200),
+      phone: String(phone).slice(0, 60),
+      address: String(address).slice(0, 600),
+      notes: notes ? String(notes).slice(0, 1000) : null,
+      items,
+      total: Number(total) || 0,
+      locale: locale || "en",
+      status: "new",
+    })
+    .select("id")
+    .single();
 
   if (error) {
     return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
   }
 
-  // Fire off the Telegram alert (won't block or fail the order).
-  await notifyTelegram({ customer, phone, address, notes, items, total: Number(total) || 0 });
+  // Short, human-friendly reference shared with the customer and the admin
+  // dashboard (first segment of the row's UUID).
+  const orderNo = String(data.id).split("-")[0].toUpperCase();
 
-  return NextResponse.json({ ok: true });
+  // Fire off the Telegram alert (won't block or fail the order).
+  await notifyTelegram({ customer, phone, address, notes, items, total: Number(total) || 0, orderNo });
+
+  return NextResponse.json({ ok: true, orderNo });
 }
 
 /** Admin updates an order's status — requires the admin password. */

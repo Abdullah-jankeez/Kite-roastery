@@ -147,6 +147,9 @@ export default function AdminOrdersPage() {
                 <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8, marginBottom: 12 }}>
                   <div>
                     <span style={{ fontWeight: 800, color: CHARCOAL, fontSize: 17 }}>{o.customer}</span>
+                    <span style={{ marginInlineStart: 8, fontSize: 12, fontWeight: 700, color: "#999", letterSpacing: "0.05em" }}>
+                      #{String(o.id).split("-")[0].toUpperCase()}
+                    </span>
                     {o.status === "new" && (
                       <span style={{ marginInlineStart: 8, fontSize: 11, fontWeight: 700, color: CHARCOAL, background: "#fdd451", padding: "2px 8px", borderRadius: 999 }}>NEW</span>
                     )}

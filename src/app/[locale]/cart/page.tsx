@@ -19,6 +19,7 @@ export default function CartPage() {
   const [success, setSuccess] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [orderNo, setOrderNo] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -47,6 +48,7 @@ export default function CartPage() {
       if (!res.ok || !data.ok) {
         throw new Error(data.error || "Could not place the order. Please try again.");
       }
+      if (data.orderNo) setOrderNo(data.orderNo);
       clearCart();
       setSuccess(true);
     } catch (err) {
@@ -79,6 +81,18 @@ export default function CartPage() {
         >
           {c("success")}
         </motion.h2>
+        {orderNo && (
+          <motion.p
+            dir="ltr"
+            className="text-sm font-semibold tracking-widest px-4 py-2 rounded-full"
+            style={{ backgroundColor: "#eef9f6", color: "#3f9c8b" }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            {c("orderRef")}: #{orderNo}
+          </motion.p>
+        )}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

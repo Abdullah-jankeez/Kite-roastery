@@ -10,6 +10,8 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import CartToast from "@/components/CartToast";
 import ScrollProgress from "@/components/ScrollProgress";
 import FlyToCart from "@/components/FlyToCart";
+import { SITE_URL } from "@/lib/site";
+import { Analytics } from "@vercel/analytics/next";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,6 +28,10 @@ const cormorant = Cormorant({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  alternates: {
+    languages: { en: "/en", ar: "/ar" },
+  },
   title: {
     default: "Kite Coffee Roastery",
     template: "%s · Kite Coffee Roastery",
@@ -81,6 +87,7 @@ export default async function LocaleLayout({
             <WhatsAppButton />
             <CartToast />
             <FlyToCart />
+            <Analytics />
           </CartProvider>
         </NextIntlClientProvider>
       </body>
