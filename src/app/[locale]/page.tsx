@@ -38,14 +38,15 @@ export default function HomePage() {
             "radial-gradient(ellipse at 30% 15%, #ffffff 0%, #faf9f7 55%, #f1efe9 100%)",
         }}
       >
-        {/* Background video */}
+        {/* Background video (poster shows instantly while it loads) */}
         <video
           className="absolute inset-0 w-full h-full object-cover z-0"
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
+          poster="/video/hero-poster.jpg"
           aria-hidden
         >
           <source src="/video/hero.mp4" type="video/mp4" />
