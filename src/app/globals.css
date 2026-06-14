@@ -55,6 +55,8 @@
   --color-orange:    var(--kite-orange);
   --color-mustard:   var(--kite-mustard);
   --color-kite-blue: var(--kite-blue);
+  /* Warm off-white used for page + section backgrounds */
+  --color-cream:     #f6f3ec;
 }
 
 * {
@@ -63,7 +65,7 @@
 
 html {
   color: var(--kite-charcoal);
-  background: var(--kite-white);
+  background: #f6f3ec;
   scroll-behavior: smooth;
 }
 
@@ -73,7 +75,7 @@ html[lang="ar"] {
 
 body {
   min-height: 100vh;
-  background: var(--kite-white);
+  background: #f6f3ec;
 }
 
 a, button {

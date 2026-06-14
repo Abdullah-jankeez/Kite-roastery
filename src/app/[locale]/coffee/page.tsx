@@ -24,7 +24,7 @@ export default function CoffeePage() {
   const accents = ["#91d3c7", "#f179af", "#fdd451", "#e79a3d", "#96d2b2", "#303895"];
 
   return (
-    <div className="bg-white">
+    <div className="bg-cream">
       <PageHeader title={t("title")} subtitle={t("subtitle")} beans={8} />
 
       {/* Process strip — icons wobble on hover */}

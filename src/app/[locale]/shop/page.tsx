@@ -24,11 +24,11 @@ export default function ShopPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-cream">
       <PageHeader title={t("title")} subtitle={t("subtitle")} />
 
       {/* Sticky filter tabs — animated underline pill */}
-      <div className="sticky top-20 z-30 bg-white/95 backdrop-blur-md border-b border-gray-100 px-4 shadow-sm">
+      <div className="sticky top-20 z-30 bg-cream/95 backdrop-blur-md border-b border-gray-200 px-4 shadow-sm">
         <div className="max-w-7xl mx-auto flex gap-2 overflow-x-auto py-4 scrollbar-hide">
           {filters.map(({ key, label, color }) => {
             const isActive = active === key;

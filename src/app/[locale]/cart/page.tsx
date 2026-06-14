@@ -138,7 +138,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-cream">
       <div className="max-w-4xl mx-auto px-4 py-12">
         <motion.h1
           className="text-3xl font-black tracking-tight mb-8"

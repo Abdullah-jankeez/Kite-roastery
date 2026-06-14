@@ -102,7 +102,7 @@ export default function CoffeeDetail({ product, index }: { product: Product; ind
     : [];
 
   return (
-    <div className="bg-white">
+    <div className="bg-cream">
       {/* Back link */}
       <div className="max-w-6xl mx-auto px-4 pt-8">
         <Link

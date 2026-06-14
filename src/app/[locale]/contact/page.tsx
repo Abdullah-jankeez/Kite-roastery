@@ -49,7 +49,7 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-cream">
       <PageHeader title={t("title")} subtitle={t("subtitle")} />
 
       <div className="max-w-5xl mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-2 gap-16">

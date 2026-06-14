@@ -188,7 +188,7 @@ export default function HomePage() {
       </section>
 
       {/* ── FEATURED COFFEES ─────────────────────────────────────────── */}
-      <section className="relative py-20 px-4 bg-white overflow-hidden">
+      <section className="relative py-20 px-4 bg-cream overflow-hidden">
         {/* Decorative SVG dots */}
         <div
           aria-hidden
@@ -288,7 +288,7 @@ export default function HomePage() {
       </section>
 
       {/* ── WHY KITE — pillars with 3D tilt + glow ───────────────────── */}
-      <section className="relative py-20 px-4 bg-white overflow-hidden">
+      <section className="relative py-20 px-4 bg-cream overflow-hidden">
         <div className="max-w-6xl mx-auto">
           <FadeIn className="text-center mb-14">
             <div className="relative inline-block">

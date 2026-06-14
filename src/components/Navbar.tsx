@@ -59,7 +59,7 @@ export default function Navbar() {
         scrolled ? "glass-light shadow-md" : "shadow-sm border-b border-black/5"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8">
         <motion.div
           animate={{ height: scrolled ? 64 : 80 }}
           transition={{ duration: 0.3 }}
