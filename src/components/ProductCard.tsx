@@ -28,7 +28,6 @@ export default function ProductCard({ product }: { product: Product }) {
   const origin = isAr ? product.originAr : product.originEn;
   const roast = isAr ? product.roastAr : product.roastEn;
   const notes = isAr ? product.notesAr : product.notesEn;
-  const desc = isAr ? product.descAr : product.descEn;
 
   const accent =
     product.category === "beans"
@@ -149,10 +148,8 @@ export default function ProductCard({ product }: { product: Product }) {
           <p className="text-xs text-gray-400 mb-3 leading-relaxed">{notes}</p>
         )}
 
-        <p className="text-sm text-gray-600 flex-1 mb-4 leading-relaxed">{desc}</p>
-
         {/* Price + Add to Cart */}
-        <div className="flex items-center justify-between mt-auto">
+        <div className="flex items-center justify-between mt-auto pt-2">
           <div>
             <span className="text-lg font-bold" style={{ color: "#383836" }}>
               {formatIQD(product.price)}
