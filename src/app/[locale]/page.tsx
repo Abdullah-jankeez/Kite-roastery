@@ -7,10 +7,8 @@ import ProductCard from "@/components/ProductCard";
 import FadeIn from "@/components/FadeIn";
 import FloatingBeans from "@/components/FloatingBeans";
 import MagneticButton from "@/components/MagneticButton";
-import Marquee from "@/components/Marquee";
 import TiltCard from "@/components/TiltCard";
 import Icon, { IconName } from "@/components/Icon";
-import CoffeeShowcase from "@/components/CoffeeShowcase";
 import Doodle from "@/components/Doodle";
 
 export default function HomePage() {
@@ -188,32 +186,6 @@ export default function HomePage() {
           <span className="text-lg">↓</span>
         </motion.div>
       </section>
-
-      {/* ── BRAND MARQUEE ────────────────────────────────────────────── */}
-      <section
-        className="py-5 border-y"
-        style={{ backgroundColor: "#fdd451", borderColor: "#383836" }}
-      >
-        <Marquee duration={28}>
-          {Array.from({ length: 6 }).map((_, i) => (
-            <span
-              key={i}
-              className="flex items-center gap-12 text-2xl md:text-3xl font-black tracking-tight"
-              style={{ color: "#383836" }}
-            >
-              <span>{hero("slogan")}</span>
-              <span style={{ color: "#f179af" }}>✦</span>
-              <span>BAGHDAD · IRAQ</span>
-              <span style={{ color: "#303895" }}>✦</span>
-              <span>SPECIALTY ROASTED</span>
-              <span style={{ color: "#91d3c7" }}>✦</span>
-            </span>
-          ))}
-        </Marquee>
-      </section>
-
-      {/* ── COFFEE SHOWCASE — rotating coverflow of real bags ────────── */}
-      <CoffeeShowcase />
 
       {/* ── FEATURED COFFEES ─────────────────────────────────────────── */}
       <section className="relative py-20 px-4 bg-white overflow-hidden">

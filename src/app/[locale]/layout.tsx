@@ -6,7 +6,6 @@ import "../globals.css";
 import { CartProvider } from "@/lib/CartContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import WhatsAppButton from "@/components/WhatsAppButton";
 import CartToast from "@/components/CartToast";
 import ScrollProgress from "@/components/ScrollProgress";
 import FlyToCart from "@/components/FlyToCart";
@@ -84,7 +83,6 @@ export default async function LocaleLayout({
             <Navbar />
             <main className="min-h-screen">{children}</main>
             <Footer />
-            <WhatsAppButton />
             <CartToast />
             <FlyToCart />
             <Analytics />
