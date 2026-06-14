@@ -63,18 +63,68 @@ export default function Navbar() {
         <motion.div
           animate={{ height: scrolled ? 64 : 80 }}
           transition={{ duration: 0.3 }}
-          className="flex items-center justify-between"
+          className="grid grid-cols-[1fr_auto_1fr] items-center gap-2"
         >
-          {/* Logo — official KITE master artwork (full lockup, charcoal-on-light) */}
+          {/* LEFT — desktop nav links (+ mobile hamburger) */}
+          <div className="flex items-center justify-start">
+            {/* Mobile hamburger */}
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="lg:hidden p-1 -ms-1 cursor-pointer"
+              aria-label="Menu"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                {menuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+
+            {/* Desktop links — animated active pill */}
+            <div className="hidden lg:flex items-center gap-1 text-sm font-medium">
+              {links.map((l) => {
+                const active = isActive(l.href);
+                return (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    className={`relative px-3 py-2 rounded-full transition-colors ${
+                      active ? "text-[#383836]" : "text-[#383836]/75 hover:text-[#3f9c8b]"
+                    }`}
+                  >
+                    {active && (
+                      <motion.span
+                        layoutId="nav-active"
+                        className="absolute inset-0 rounded-full"
+                        style={{ backgroundColor: "#91d3c7" }}
+                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative">{l.label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* CENTER — logo (official KITE master artwork) */}
           <Link
             href={`/${locale}`}
-            className="group flex items-center"
+            className="group flex items-center justify-center"
             aria-label="Kite Coffee Roastery — Home"
           >
             <motion.div
               whileHover={{ scale: 1.04 }}
               transition={{ type: "spring", stiffness: 260, damping: 18 }}
-              animate={{ width: scrolled ? 190 : 240, height: scrolled ? 52 : 64 }}
+              animate={{ width: scrolled ? 180 : 230, height: scrolled ? 50 : 62 }}
               className="relative"
             >
               <Image
@@ -82,40 +132,14 @@ export default function Navbar() {
                 alt="Kite Coffee Roastery"
                 fill
                 priority
-                sizes="240px"
-                className="object-contain object-left group-hover:opacity-90 transition-opacity"
+                sizes="230px"
+                className="object-contain object-center group-hover:opacity-90 transition-opacity"
               />
             </motion.div>
           </Link>
 
-          {/* Desktop links — animated active pill */}
-          <div className="hidden lg:flex items-center gap-1 text-sm font-medium">
-            {links.map((l) => {
-              const active = isActive(l.href);
-              return (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  className={`relative px-3 py-2 rounded-full transition-colors ${
-                    active ? "text-[#383836]" : "text-[#383836]/75 hover:text-[#3f9c8b]"
-                  }`}
-                >
-                  {active && (
-                    <motion.span
-                      layoutId="nav-active"
-                      className="absolute inset-0 rounded-full"
-                      style={{ backgroundColor: "#91d3c7" }}
-                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative">{l.label}</span>
-                </Link>
-              );
-            })}
-          </div>
-
-          {/* Right side */}
-          <div className="flex items-center gap-3">
+          {/* RIGHT — language toggle + cart */}
+          <div className="flex items-center justify-end gap-3">
             {/* Language toggle */}
             <button
               onClick={switchLocale}
@@ -157,27 +181,6 @@ export default function Navbar() {
                 )}
               </AnimatePresence>
             </Link>
-
-            {/* Mobile hamburger */}
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="lg:hidden p-1 cursor-pointer"
-              aria-label="Menu"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {menuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
           </div>
         </motion.div>
 

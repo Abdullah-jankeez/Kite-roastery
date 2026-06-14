@@ -1,7 +1,7 @@
 "use client";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { getFeaturedProducts } from "@/lib/products";
 import ProductCard from "@/components/ProductCard";
 import FadeIn from "@/components/FadeIn";
@@ -27,71 +27,38 @@ export default function HomePage() {
     { key: "partnership",  icon: "handshake", color: "#96d2b2" }, // lime green
   ];
 
-  // Mouse parallax for hero orbs
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const sx = useSpring(mx, { stiffness: 60, damping: 18, mass: 1 });
-  const sy = useSpring(my, { stiffness: 60, damping: 18, mass: 1 });
-  const orbAx = useTransform(sx, [-0.5, 0.5], [-60, 60]);
-  const orbAy = useTransform(sy, [-0.5, 0.5], [-40, 40]);
-  const orbBx = useTransform(sx, [-0.5, 0.5], [40, -40]);
-  const orbBy = useTransform(sy, [-0.5, 0.5], [30, -30]);
-  const orbCx = useTransform(sx, [-0.5, 0.5], [-25, 25]);
-  const orbCy = useTransform(sy, [-0.5, 0.5], [25, -25]);
-
-  function trackMouse(e: React.MouseEvent<HTMLElement>) {
-    const r = e.currentTarget.getBoundingClientRect();
-    mx.set((e.clientX - r.left) / r.width - 0.5);
-    my.set((e.clientY - r.top) / r.height - 0.5);
-  }
 
   return (
     <div>
       {/* ── HERO ─────────────────────────────────────────────────────── */}
       <section
-        onMouseMove={trackMouse}
         className="relative flex items-center justify-center min-h-[92vh] overflow-hidden bg-grain"
         style={{
           background:
             "radial-gradient(ellipse at 30% 15%, #ffffff 0%, #faf9f7 55%, #f1efe9 100%)",
         }}
       >
-        {/* Mouse-parallax gradient orbs — soft brand colour washes on white */}
-        <motion.div
-          className="absolute w-[620px] h-[620px] rounded-full opacity-40 blur-3xl"
+        {/* Background video */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden
+        >
+          <source src="/video/hero.mp4" type="video/mp4" />
+        </video>
+
+        {/* Soft white scrim keeps the section light + text readable over the video */}
+        <div
+          aria-hidden
+          className="absolute inset-0 z-[1] pointer-events-none"
           style={{
-            background: "#91d3c7",
-            top: "6%",
-            left: "-12%",
-            x: orbAx,
-            y: orbAy,
+            background:
+              "radial-gradient(ellipse at 50% 45%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.4) 45%, rgba(250,249,247,0.62) 100%)",
           }}
-          animate={{ scale: [1, 1.08, 1] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute w-[520px] h-[520px] rounded-full opacity-30 blur-3xl"
-          style={{
-            background: "#f179af",
-            bottom: "2%",
-            right: "-12%",
-            x: orbBx,
-            y: orbBy,
-          }}
-          animate={{ scale: [1, 1.1, 1] }}
-          transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute w-[420px] h-[420px] rounded-full opacity-30 blur-3xl"
-          style={{
-            background: "#fdd451",
-            top: "48%",
-            left: "42%",
-            x: orbCx,
-            y: orbCy,
-          }}
-          animate={{ scale: [1, 1.12, 1] }}
-          transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
         />
 
         {/* Floating coffee beans — subtle charcoal on the light backdrop */}
@@ -119,7 +86,7 @@ export default function HomePage() {
           <div
             dir="ltr"
             className="text-[clamp(5rem,18vw,14rem)] font-black tracking-tight leading-none mb-4 select-none flex justify-center"
-            style={{ color: "#383836" }}
+            style={{ color: "#383836", textShadow: "0 2px 30px rgba(255,255,255,0.7)" }}
           >
             {"KITE".split("").map((ch, i) => (
               <motion.span
@@ -165,7 +132,7 @@ export default function HomePage() {
 
           <motion.p
             className="text-lg md:text-2xl font-light mb-2 tracking-wide"
-            style={{ color: "#4b4b48" }}
+            style={{ color: "#3a3a38", textShadow: "0 1px 14px rgba(255,255,255,0.85)" }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.6 }}
@@ -175,7 +142,7 @@ export default function HomePage() {
 
           <motion.p
             className="text-2xl md:text-3xl font-semibold mb-10"
-            style={{ color: "#3f9c8b" }}
+            style={{ color: "#2f8576", textShadow: "0 1px 14px rgba(255,255,255,0.85)" }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.8 }}
