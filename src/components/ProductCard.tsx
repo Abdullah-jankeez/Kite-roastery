@@ -45,9 +45,9 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <motion.div
-      whileHover={{ y: -6 }}
+      whileHover={{ scale: 1.02 }}
       transition={{ type: "spring", stiffness: 260, damping: 22 }}
-      className="group relative flex flex-col bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-shadow duration-300 h-full"
+      className="group relative flex flex-col bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 h-full"
     >
       {/* Accent top stripe — reveals on hover */}
       <span
@@ -144,9 +144,10 @@ export default function ProductCard({ product }: { product: Product }) {
           </p>
         )}
 
-        {notes && (
-          <p className="text-xs text-gray-400 mb-3 leading-relaxed">{notes}</p>
-        )}
+        {/* Notes area always reserves the same height so all cards stay equal */}
+        <p className="text-xs text-gray-400 mb-3 leading-relaxed line-clamp-2 min-h-[2.6rem]">
+          {notes || " "}
+        </p>
 
         {/* Price + Add to Cart */}
         <div className="flex items-center justify-between mt-auto pt-2">

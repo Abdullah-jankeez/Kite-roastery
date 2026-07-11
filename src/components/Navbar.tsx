@@ -33,14 +33,13 @@ export default function Navbar() {
     router.push(segments.join("/") || `/${otherLocale}`);
   }
 
+  // Per client direction: Shop – Subscription – Wholesale – About.
+  // (Other pages stay reachable through the footer; the logo is the home button.)
   const links = [
-    { href: `/${locale}`, label: t("home") },
-    { href: `/${locale}/about`, label: t("about") },
-    { href: `/${locale}/coffee`, label: t("coffee") },
     { href: `/${locale}/shop`, label: t("shop") },
-    { href: `/${locale}/brewing`, label: t("brewing") },
+    { href: `/${locale}/subscriptions`, label: t("subscriptions") },
     { href: `/${locale}/wholesale`, label: t("wholesale") },
-    { href: `/${locale}/contact`, label: t("contact") },
+    { href: `/${locale}/about`, label: t("about") },
   ];
 
   const isActive = (href: string) => {
@@ -61,7 +60,7 @@ export default function Navbar() {
     >
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <motion.div
-          animate={{ height: scrolled ? 64 : 80 }}
+          animate={{ height: scrolled ? 72 : 92 }}
           transition={{ duration: 0.3 }}
           className="grid grid-cols-[1fr_auto_1fr] items-center gap-2"
         >
@@ -88,34 +87,28 @@ export default function Navbar() {
               </svg>
             </button>
 
-            {/* Desktop links — animated active pill */}
-            <div className="hidden lg:flex items-center gap-1 text-sm font-medium">
+            {/* Desktop links — plain text, simple underline on hover (coffeecollective style) */}
+            <div className="hidden lg:flex items-center gap-7 text-sm font-medium">
               {links.map((l) => {
                 const active = isActive(l.href);
                 return (
                   <Link
                     key={l.href}
                     href={l.href}
-                    className={`relative px-3 py-2 rounded-full transition-colors ${
-                      active ? "text-[#383836]" : "text-[#383836]/75 hover:text-[#3f9c8b]"
+                    className={`pb-0.5 border-b transition-colors text-[#383836] ${
+                      active
+                        ? "border-[#383836]"
+                        : "border-transparent hover:border-[#383836]"
                     }`}
                   >
-                    {active && (
-                      <motion.span
-                        layoutId="nav-active"
-                        className="absolute inset-0 rounded-full"
-                        style={{ backgroundColor: "#91d3c7" }}
-                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                      />
-                    )}
-                    <span className="relative">{l.label}</span>
+                    {l.label}
                   </Link>
                 );
               })}
             </div>
           </div>
 
-          {/* CENTER — logo (official KITE master artwork) */}
+          {/* CENTER — bigger logo, acts as the home button */}
           <Link
             href={`/${locale}`}
             className="group flex items-center justify-center"
@@ -124,15 +117,18 @@ export default function Navbar() {
             <motion.div
               whileHover={{ scale: 1.04 }}
               transition={{ type: "spring", stiffness: 260, damping: 18 }}
-              animate={{ width: scrolled ? 180 : 230, height: scrolled ? 50 : 62 }}
-              className="relative"
+              className="relative transition-all duration-300"
+              style={{
+                width: scrolled ? "clamp(180px, 42vw, 250px)" : "clamp(200px, 48vw, 310px)",
+                height: scrolled ? 58 : 74,
+              }}
             >
               <Image
                 src="/logo/kite-full-dark.png"
                 alt="Kite Coffee Roastery"
                 fill
                 priority
-                sizes="230px"
+                sizes="310px"
                 className="object-contain object-center group-hover:opacity-90 transition-opacity"
               />
             </motion.div>
@@ -140,19 +136,19 @@ export default function Navbar() {
 
           {/* RIGHT — language toggle + cart */}
           <div className="flex items-center justify-end gap-3">
-            {/* Language toggle */}
+            {/* Language toggle — plain text, underline on hover */}
             <button
               onClick={switchLocale}
-              className="text-xs font-semibold border border-black/15 rounded-full px-3 py-1.5 hover:border-[#3f9c8b] hover:text-[#3f9c8b] transition-colors cursor-pointer"
+              className="text-sm font-medium text-[#383836] pb-0.5 border-b border-transparent hover:border-[#383836] transition-colors cursor-pointer"
             >
               {otherLabel}
             </button>
 
-            {/* Cart */}
+            {/* Cart — icon only */}
             <Link
               id="cart-target"
               href={`/${locale}/cart`}
-              className="relative p-1.5 rounded-full hover:text-[#3f9c8b] hover:bg-black/5 transition-colors"
+              className="relative p-1.5 text-[#383836] hover:opacity-70 transition-opacity"
               aria-label="Cart"
             >
               {/* key remount wiggles the icon whenever the count changes */}

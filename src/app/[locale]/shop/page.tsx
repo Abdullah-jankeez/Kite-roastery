@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { products, Product } from "@/lib/products";
 import ProductCard from "@/components/ProductCard";
 import PageHeader from "@/components/PageHeader";
-import TiltCard from "@/components/TiltCard";
 
 type Category = "all" | Product["category"];
 
@@ -28,7 +27,7 @@ export default function ShopPage() {
       <PageHeader title={t("title")} subtitle={t("subtitle")} />
 
       {/* Sticky filter tabs — animated underline pill */}
-      <div className="sticky top-20 z-30 bg-cream/95 backdrop-blur-md border-b border-gray-200 px-4 shadow-sm">
+      <div className="sticky top-[72px] z-30 bg-cream/95 backdrop-blur-md border-b border-gray-200 px-4 shadow-sm">
         <div className="max-w-7xl mx-auto flex gap-2 overflow-x-auto py-4 scrollbar-hide">
           {filters.map(({ key, label, color }) => {
             const isActive = active === key;
@@ -83,10 +82,9 @@ export default function ShopPage() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
+                className="h-full"
               >
-                <TiltCard maxTilt={6}>
-                  <ProductCard product={p} />
-                </TiltCard>
+                <ProductCard product={p} />
               </motion.div>
             ))}
           </motion.div>

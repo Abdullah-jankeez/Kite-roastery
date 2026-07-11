@@ -7,7 +7,6 @@ import ProductCard from "@/components/ProductCard";
 import FadeIn from "@/components/FadeIn";
 import FloatingBeans from "@/components/FloatingBeans";
 import MagneticButton from "@/components/MagneticButton";
-import TiltCard from "@/components/TiltCard";
 import Icon, { IconName } from "@/components/Icon";
 import Doodle from "@/components/Doodle";
 
@@ -28,15 +27,9 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* ── HERO ─────────────────────────────────────────────────────── */}
-      <section
-        className="relative flex items-center justify-center min-h-[92vh] overflow-hidden bg-grain"
-        style={{
-          background:
-            "radial-gradient(ellipse at 30% 15%, #ffffff 0%, #faf9f7 55%, #f1efe9 100%)",
-        }}
-      >
-        {/* Background video (poster shows instantly while it loads) */}
+      {/* ── HERO — full-bleed video, minimal copy on the start side ──── */}
+      <section className="relative flex items-center min-h-[92vh] overflow-hidden bg-[#1c1c1b]">
+        {/* Background video, shown as-is (poster displays while it loads) */}
         <video
           className="absolute inset-0 w-full h-full object-cover z-0"
           autoPlay
@@ -50,141 +43,38 @@ export default function HomePage() {
           <source src="/video/hero.mp4" type="video/mp4" />
         </video>
 
-        {/* Soft white scrim keeps the section light + text readable over the video */}
+        {/* Subtle dark gradient on the text side only — keeps white copy legible */}
         <div
           aria-hidden
-          className="absolute inset-0 z-[1] pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse at 50% 45%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.4) 45%, rgba(250,249,247,0.62) 100%)",
-          }}
+          className="absolute inset-y-0 start-0 w-full md:w-3/5 z-[1] pointer-events-none bg-gradient-to-r from-black/50 via-black/25 to-transparent rtl:bg-gradient-to-l"
         />
 
-        {/* Floating coffee beans — subtle charcoal on the light backdrop */}
-        <FloatingBeans count={10} color="rgba(56, 56, 54, 0.10)" />
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="max-w-xl text-start">
+            <motion.h1
+              className="font-display text-white font-medium leading-tight mb-8"
+              style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+            >
+              {hero("minimalTitle")}
+            </motion.h1>
 
-        {/* Hand-drawn steam doodle rising near the wordmark (brand book p.14) */}
-        <Doodle
-          name="steam"
-          color="#3f9c8b"
-          strokeWidth={4}
-          className="hidden md:block absolute top-[16%] right-[16%] w-16 lg:w-20 opacity-70 pointer-events-none"
-          delay={1.2}
-        />
-        <Doodle
-          name="kite"
-          color="#e79a3d"
-          strokeWidth={4}
-          className="hidden md:block absolute bottom-[18%] left-[12%] w-16 lg:w-20 opacity-60 pointer-events-none"
-          delay={1.6}
-        />
-
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          {/* KITE wordmark — letter-by-letter reveal with hover lift.
-              dir="ltr" so the Latin brand name never reverses in Arabic (RTL). */}
-          <div
-            dir="ltr"
-            className="text-[clamp(5rem,18vw,14rem)] font-black tracking-tight leading-none mb-4 select-none flex justify-center"
-            style={{ color: "#383836", textShadow: "0 2px 30px rgba(255,255,255,0.7)" }}
-          >
-            {"KITE".split("").map((ch, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 80, rotate: -8 }}
-                animate={{ opacity: 1, y: 0, rotate: 0 }}
-                transition={{
-                  duration: 0.7,
-                  delay: i * 0.08,
-                  ease: [0.25, 0.1, 0.25, 1],
-                }}
-                whileHover={{ y: -10, color: "#5BA499" }}
-                className="inline-block cursor-default"
-              >
-                {ch}
-              </motion.span>
-            ))}
-          </div>
-
-          {/* Coloured accent bar */}
-          <motion.div
-            className="flex justify-center gap-1 mb-6"
-            initial={{ opacity: 0, scaleX: 0 }}
-            animate={{ opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-          >
-            {["#91d3c7", "#f179af", "#96d2b2", "#e79a3d", "#fdd451", "#303895"].map((c, i) => (
-              <motion.span
-                key={c}
-                className="h-1.5 w-8 rounded-full"
-                style={{ backgroundColor: c }}
-                animate={{ scaleY: [1, 1.8, 1] }}
-                transition={{
-                  duration: 1.4,
-                  delay: i * 0.15,
-                  repeat: Infinity,
-                  repeatDelay: 2,
-                  ease: "easeInOut",
-                }}
-              />
-            ))}
-          </motion.div>
-
-          <motion.p
-            className="text-lg md:text-2xl font-light mb-2 tracking-wide"
-            style={{ color: "#3a3a38", textShadow: "0 1px 14px rgba(255,255,255,0.85)" }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
-          >
-            {hero("tagline")}
-          </motion.p>
-
-          <motion.p
-            className="text-2xl md:text-3xl font-semibold mb-10"
-            style={{ color: "#2f8576", textShadow: "0 1px 14px rgba(255,255,255,0.85)" }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.8 }}
-          >
-            {hero("slogan")}
-          </motion.p>
-
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 1 }}
-          >
-            <MagneticButton>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.35 }}
+            >
               <Link
                 href={`/${locale}/shop`}
-                className="inline-block px-8 py-4 text-sm font-bold rounded-full uppercase tracking-widest shadow-lg transition-shadow hover:shadow-xl"
-                style={{ backgroundColor: "#91d3c7", color: "#383836" }}
+                className="inline-block px-9 py-4 text-sm font-semibold uppercase tracking-widest text-white border border-white/80 rounded-full hover:bg-white hover:text-[#383836] transition-colors"
               >
-                {hero("shopNow")}
+                {hero("exploreBtn")}
               </Link>
-            </MagneticButton>
-            <MagneticButton>
-              <Link
-                href={`/${locale}/about`}
-                className="inline-block px-8 py-4 text-sm font-bold rounded-full border-2 uppercase tracking-widest hover:bg-black/5 transition-colors"
-                style={{ borderColor: "rgba(56,56,54,0.25)", color: "#383836" }}
-              >
-                {hero("learnMore")}
-              </Link>
-            </MagneticButton>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
-
-        {/* Scroll hint */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[#383836]/40 text-xs tracking-widest flex flex-col items-center gap-2"
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <span>SCROLL</span>
-          <span className="text-lg">↓</span>
-        </motion.div>
       </section>
 
       {/* ── FEATURED COFFEES ─────────────────────────────────────────── */}
@@ -221,10 +111,8 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {featured.map((p, i) => (
-              <FadeIn key={p.id} delay={i * 0.12} direction="up">
-                <TiltCard maxTilt={6}>
-                  <ProductCard product={p} />
-                </TiltCard>
+              <FadeIn key={p.id} delay={i * 0.12} direction="up" className="h-full">
+                <ProductCard product={p} />
               </FadeIn>
             ))}
           </div>
@@ -306,28 +194,28 @@ export default function HomePage() {
               </h2>
             </div>
           </FadeIn>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {pillars.map(({ key, icon, color }, i) => (
-              <FadeIn key={key} delay={i * 0.1} direction="up">
-                <TiltCard glowColor={`${color}55`} maxTilt={10}>
+          {/* Equal cards, neutral icons, scale-only hover (client direction) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
+            {pillars.map(({ key, icon }, i) => (
+              <FadeIn key={key} delay={i * 0.1} direction="up" className="h-full">
+                <motion.div
+                  whileHover={{ scale: 1.04 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                  className="text-center p-8 rounded-2xl border border-gray-200 h-full bg-white shadow-sm flex flex-col"
+                >
                   <div
-                    className="group text-center p-8 rounded-2xl border-2 transition-colors h-full bg-white hover:shadow-2xl"
-                    style={{ borderColor: "#dcdddd" }}
+                    className="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center"
+                    style={{ backgroundColor: "#f0ebe0" }}
                   >
-                    <motion.div
-                      className="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center shadow-md"
-                      style={{ backgroundColor: color }}
-                      whileHover={{ rotate: [0, -12, 12, 0], scale: 1.12 }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      <Icon name={icon} className="w-8 h-8 text-[#383836]" strokeWidth={1.8} />
-                    </motion.div>
-                    <h3 className="text-xl font-bold mb-2" style={{ color: "#383836" }}>
-                      {t(key)}
-                    </h3>
-                    <p className="text-sm text-gray-500 leading-relaxed">{t(`${key}Desc`)}</p>
+                    <Icon name={icon} className="w-8 h-8 text-[#383836]" strokeWidth={1.8} />
                   </div>
-                </TiltCard>
+                  <h3 className="text-xl font-bold mb-2" style={{ color: "#383836" }}>
+                    {t(key)}
+                  </h3>
+                  <p className="text-sm text-gray-500 leading-relaxed min-h-[4rem]">
+                    {t(`${key}Desc`)}
+                  </p>
+                </motion.div>
               </FadeIn>
             ))}
           </div>
